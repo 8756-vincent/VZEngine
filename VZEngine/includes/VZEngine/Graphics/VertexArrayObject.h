@@ -27,22 +27,46 @@ const IndicesMatrix PolyIndices{
 
 const PositionMatrix CirclePosition{
 	//x		//y		//z
-	-0.5f,	-0.5f,	0.0f,	//bottom left
-	 0.5f,	-0.5f,	0.0f,	//bottom right
-	 0.5f,	 0.5f,	0.0f,	//top right
-	-0.5f,	 0.5f,	0.0f	//top left
+	 0.0f,	 0.0f,	0.0f,	//middle				0
 
-	-0.7f,	 0.7f,	0.0f	//top left
-	-0.7f,	 0.7f,	0.0f	//top left
+	 //top
+	 0.7f,	 0.0f,	0.0f,	//tri-right				1
+	 0.5f,	 0.5f,	0.0f,	//tri-right				2
+
+	-0.7f,	 0.0f,	0.0f,	//tri-left 				3
+	-0.5f,	 0.5f,	0.0f,	//tri-left 				4
+
+	 0.0f,	 0.7f,	0.0f,	//tri-right				5
+	 0.5f,	 0.5f,	0.0f,	//tri-right				6
+
+	 0.0f,	 0.7f,	0.0f,	//tri-left				7
+	-0.5f,	 0.5f,	0.0f,	//tri-left				8
+
+	//bottom
+	0.7f,	 0.0f,	0.0f,	//tri-right				9
+	0.5f,	-0.5f,	0.0f,	//tri-right				10
+
+	-0.7f,	 0.0f,	0.0f,	//tri-left 				11
+	-0.5f,	 -0.5f,	0.0f,	//tri-left 				12
+
+	 0.0f,	 -0.7f,	0.0f,	//tri-right				13
+	 0.5f,	 -0.5f,	0.0f,	//tri-right				14
+
+	 0.0f,	 -0.7f,	0.0f,	//tri-left				15
+	-0.5f,	 -0.5f,	0.0f,	//tri-left				16
+
+	
 
 };
 const IndicesMatrix CircleIndices{
-	0, 5, 4,	// Triangle 1
-	//1, 1, 1,	// Triangle 2
-	//2, 2, 2,	// Triangle 1
-	//3, 3, 3,	// Triangle 2
-	//0, 3, 1,	// Triangle 1
-	//3, 2, 1,	// Triangle 2
+	0, 1, 2,	// right
+	0, 3, 4,	// left
+	0, 5, 6,	// right
+	0, 7, 8,	// 
+	0, 9, 10,	// 
+	0, 11, 12,	// 
+	0, 13, 14,	// 
+	0, 15, 16,	// 
 };
 
 class VertexArrayObject {

@@ -76,7 +76,6 @@ void Game::ProcessInput()
 		case SDL_QUIT: // on close button pressed
 			bIsGameOver = true;
 			break;
-
 		default:
 			break;
 		}

@@ -1,4 +1,5 @@
 #include "VZEngine/Game.h"
+#include "VZEngine/Graphics/GraphicsEngine.h"
 
 Game& Game::GetGameInstance()
 {
@@ -15,7 +16,7 @@ void Game::DestroyGameInstance()
 
 void Game::Start(const char* WTitle, bool bFullscreen, int WWidth, int WHeight)
 {
-	Graphics = new GraphicsEngine();
+	Graphics = make_shared<GraphicsEngine>();
 
 	if (!Graphics->InitGE(WTitle, bFullscreen, WWidth, WHeight))
 	{
@@ -35,11 +36,19 @@ Game::Game()
 
 Game::~Game()
 {
+
+	Graphics = nullptr;
+
 	cout << "GameOver!" << endl;
 }
 
 void Game::Run()
 {
+	if (!bIsGameOver)
+	{
+		Graphics->CreateVAO();
+	}
+
 	while (!bIsGameOver)
 	{
 		//make sure we process what the user have done
@@ -58,17 +67,34 @@ void Game::Run()
 
 void Game::ProcessInput()
 {
-	
+	SDL_Event PollEvent;
+
+	while (SDL_PollEvent(&PollEvent))
+	{
+		switch (PollEvent.type)
+		{
+		case SDL_QUIT: // on close button pressed
+			bIsGameOver = true;
+			break;
+
+		default:
+			break;
+		}
+
+	}
 }
 
 void Game::Update()
 {
+
 }
 
 void Game::Draw()
 {
+	Graphics->Draw();
 }
 
 void Game::CloseGame()
 {
+
 }

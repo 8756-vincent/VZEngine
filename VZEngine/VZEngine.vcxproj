@@ -134,14 +134,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Includes\stb_image\stb_image.h" />
+    <ClInclude Include="includes\VZEngine\CoreMinimal.h" />
     <ClInclude Include="Includes\VZEngine\Game.h" />
     <ClInclude Include="Includes\VZEngine\Graphics\GraphicsEngine.h" />
+    <ClInclude Include="includes\VZEngine\Graphics\VertexArrayObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Main.cpp" />
     <ClCompile Include="source\stb_image\stb_image.cpp" />
     <ClCompile Include="source\VZEngine\Game.cpp" />
     <ClCompile Include="source\VZEngine\Graphics\GraphicsEngine.cpp" />
+    <ClCompile Include="source\VZEngine\Graphics\VertexArrayObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

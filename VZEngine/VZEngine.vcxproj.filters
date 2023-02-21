@@ -24,6 +24,18 @@
     <ClInclude Include="Includes\VZEngine\Graphics\GraphicsEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="includes\VZEngine\Graphics\VertexArrayObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\VZEngine\CoreMinimal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\VZEngine\Graphics\ShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\stb_image\stb_image.cpp">
@@ -38,5 +50,18 @@
     <ClCompile Include="source\VZEngine\Graphics\GraphicsEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
+=======
+    <ClCompile Include="source\VZEngine\Graphics\VertexArrayObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\VZEngine\Graphics\ShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\Shaders\SimpleShader\SimpleShader.svert" />
+    <None Include="Game\Shaders\SimpleShader\SimpleShader.sfrag" />
+>>>>>>> Stashed changes
   </ItemGroup>
 </Project>

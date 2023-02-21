@@ -136,12 +136,26 @@
     <ClInclude Include="Includes\stb_image\stb_image.h" />
     <ClInclude Include="Includes\VZEngine\Game.h" />
     <ClInclude Include="Includes\VZEngine\Graphics\GraphicsEngine.h" />
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="includes\VZEngine\Graphics\ShaderProgram.h" />
+    <ClInclude Include="includes\VZEngine\Graphics\VertexArrayObject.h" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Main.cpp" />
     <ClCompile Include="source\stb_image\stb_image.cpp" />
     <ClCompile Include="source\VZEngine\Game.cpp" />
     <ClCompile Include="source\VZEngine\Graphics\GraphicsEngine.cpp" />
+<<<<<<< Updated upstream
+=======
+    <ClCompile Include="source\VZEngine\Graphics\ShaderProgram.cpp" />
+    <ClCompile Include="source\VZEngine\Graphics\VertexArrayObject.cpp" />
+>>>>>>> Stashed changes
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\Shaders\SimpleShader\SimpleShader.sfrag" />
+    <None Include="Game\Shaders\SimpleShader\SimpleShader.svert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,8 +1,15 @@
 #include "VZEngine/Graphics/GraphicsEngine.h"
 #include "GL/glew.h"
+<<<<<<< Updated upstream
 #include <iostream>
 
 using namespace std;
+=======
+#include "VZEngine/Graphics/VertexArrayObject.h"
+#include "VZEngine/Graphics/ShaderProgram.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+>>>>>>> Stashed changes
 
 GraphicsEngine::GraphicsEngine()
 {
@@ -30,9 +37,9 @@ bool GraphicsEngine::InitGE(const char* WTitle, bool bFullscreen, int WWidth, in
 		return false;
 	}
 	//use OpenGl 3.1 and se dafault attributes
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
@@ -101,7 +108,103 @@ void GraphicsEngine::ClearGraphics()
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
+<<<<<<< Updated upstream
+=======
+void GraphicsEngine::Draw()
+{
+	ClearGraphics();
+
+	HandleWireFrameMode(false);
+
+	vzuint index = 0;
+
+	//
+	for (VAOPtr VAO : VAOs) {
+
+		Shader->RunShader();
+
+		//move the object
+		glm::mat4 transform = glm::mat4(1.0f);
+
+		//0-triangle
+		//1-poly
+		//2-circle
+		if (index == 0)
+		{
+			transform = glm::translate(transform, glm::vec3(0.5f, 0.0, 0.0f));
+			//radians is rotation amount
+			//vec3 is the direction to totate in
+			transform = glm::rotate(transform, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+			transform = glm::scale(transform, glm::vec3(1.0f, 1.0f, 1.0f));
+
+		}
+		else if (index == 1)
+		{
+			transform = glm::translate(transform, glm::vec3(-0.5f, 0.0, 0.0f));
+			//x and y will work for our 2D shapes
+			//z must be larger than - or you wont see the objects (1 is dafault)
+			transform = glm::scale(transform, glm::vec3(1.0f, 1.0f, 1.0f));
+		}
+
+		Shader->SetMat4("transform", transform);
+		
+
+		//draw each VAO
+		VAO->Draw();
+
+		index++;
+	}
+	index = 0;
+
+	PresentGraphics();
+}
+
+>>>>>>> Stashed changes
 SDL_Window* GraphicsEngine::GetWindow() const
 {
 	return SdlWindow;
 }
+<<<<<<< Updated upstream
+=======
+
+void GraphicsEngine::CreateVAO(GeometricShapes Shape)
+{
+	VAOPtr NewVAO = make_shared<VAO>(GeometricShapes::Triangle);
+
+	VAOs.push_back(NewVAO);
+}
+
+void GraphicsEngine::CreateShader(VFShaderParams ShaderFilePaths)
+{
+	//create a new shader class
+	ShaderPtr NewShader = make_shared<ShaderProgram>();
+	
+	//initialise the shader into openGL using the file paths
+	NewShader->InitVFShader(ShaderFilePaths);
+	
+	//add the shader to out graphics engine
+	Shader = NewShader;
+
+}
+
+void GraphicsEngine::HandleWireFrameMode(bool bShowWireFrameMode)
+{
+	// if wireframe is set, change it
+	if (bShowWireFrameMode != bWireFrameMode)
+	{
+		bWireFrameMode = bShowWireFrameMode;
+
+		//change how openGl renders between the vertices
+		if (bWireFrameMode)
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+
+		cout << "Wireframe Mode Updated..." << endl;
+	}
+}
+>>>>>>> Stashed changes

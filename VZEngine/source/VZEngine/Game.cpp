@@ -40,6 +40,22 @@ Game::~Game()
 
 void Game::Run()
 {
+<<<<<<< Updated upstream
+=======
+	if (!bIsGameOver)
+	{
+		Graphics->CreateShader({
+			L"Game/Shaders/SimpleShader/SimpleShader.svert",
+			L"Game/Shaders/SimpleShader/SimpleShader.sfrag"
+			});
+
+		//create VAO
+		Graphics->CreateVAO(GeometricShapes::Triangle);
+		Graphics->CreateVAO(GeometricShapes::Polygon);
+		//Graphics->CreateVAO(GeometricShapes::Circle);
+	}
+
+>>>>>>> Stashed changes
 	while (!bIsGameOver)
 	{
 		//make sure we process what the user have done

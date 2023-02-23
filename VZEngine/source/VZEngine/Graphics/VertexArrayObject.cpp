@@ -74,9 +74,6 @@ VertexArrayObject::VertexArrayObject(GeometricShapes ChosenShape)
 		(void*)0			// offset if how many number to skip in the matrix
 	);
 
-	// enable the vertex array
-	glEnableVertexAttribArray(0);
-
 	//Assign the colour to the shader
 	glVertexAttribPointer(
 		1,

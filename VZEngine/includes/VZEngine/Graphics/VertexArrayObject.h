@@ -1,6 +1,5 @@
 #pragma once
 #include "VZEngine/CoreMinimal.h"
-
 const PositionMatrix TrianglePosition{
 	//x		//y		//z		//colour
 	-0.5f,	-0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	//bottom left
@@ -30,30 +29,30 @@ const PositionMatrix CirclePosition{
 	 0.0f,	 0.0f,	0.0f,	//middle				0
 
 	 //top
-	 0.7f,	 0.0f,	0.0f,	//				1
-	 0.5f,	 0.5f,	0.0f,	//				2
+	 0.7f,	 0.0f,	0.0f,	//tri-right				1
+	 0.5f,	 0.5f,	0.0f,	//tri-right				2
 
-	-0.7f,	 0.0f,	0.0f,	// 				3
-	-0.5f,	 0.5f,	0.0f,	// 				4
+	-0.7f,	 0.0f,	0.0f,	//tri-left 				3
+	-0.5f,	 0.5f,	0.0f,	//tri-left 				4
 
-	 0.0f,	 0.7f,	0.0f,	//				5
-	 0.5f,	 0.5f,	0.0f,	//				6
+	 0.0f,	 0.7f,	0.0f,	//tri-right				5
+	 0.5f,	 0.5f,	0.0f,	//tri-right				6
 
-	 0.0f,	 0.7f,	0.0f,	//				7
-	-0.5f,	 0.5f,	0.0f,	//				8
+	 0.0f,	 0.7f,	0.0f,	//tri-left				7
+	-0.5f,	 0.5f,	0.0f,	//tri-left				8
 
 	//bottom
-	0.7f,	 0.0f,	0.0f,	//				9
-	0.5f,	-0.5f,	0.0f,	//				10
+	0.7f,	 0.0f,	0.0f,	//tri-right				9
+	0.5f,	-0.5f,	0.0f,	//tri-right				10
 
-	-0.7f,	 0.0f,	0.0f,	// 				11
-	-0.5f,	 -0.5f,	0.0f,	// 				12
+	-0.7f,	 0.0f,	0.0f,	//tri-left 				11
+	-0.5f,	 -0.5f,	0.0f,	//tri-left 				12
 
-	 0.0f,	 -0.7f,	0.0f,	//				13
-	 0.5f,	 -0.5f,	0.0f,	//				14
+	 0.0f,	 -0.7f,	0.0f,	//tri-right				13
+	 0.5f,	 -0.5f,	0.0f,	//tri-right				14
 
-	 0.0f,	 -0.7f,	0.0f,	//				15
-	-0.5f,	 -0.5f,	0.0f,	//				16
+	 0.0f,	 -0.7f,	0.0f,	//tri-left				15
+	-0.5f,	 -0.5f,	0.0f,	//tri-left				16
 
 	
 

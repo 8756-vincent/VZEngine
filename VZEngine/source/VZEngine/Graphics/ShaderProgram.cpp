@@ -157,7 +157,7 @@ bool ShaderProgram::Link()
 {
 	//add the program to openGL
 	glLinkProgram(ProgramID);
-	
+
 	//check the link for logs and errors
 	int LogLength = 0;
 	glGetShaderiv(ProgramID, GL_INFO_LOG_LENGTH, &LogLength);

@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <vector>
-
 using namespace std;
+
 
 typedef unsigned int vzuint;
 

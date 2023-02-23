@@ -1,5 +1,6 @@
 #pragma once
 #include "SLD2/SDL.h"
+#include "VZEngine/CoreMinimal.h"
 
 class GraphicsEngine {
 public:
@@ -14,11 +15,11 @@ public:
 	//clear the old frame graphics
 	void ClearGraphics();
 	
+	void Draw();
+
 	//return the sdl window
 	SDL_Window* GetWindow() const;
 
-<<<<<<< Updated upstream
-=======
 	// add a new vao to the VAOStack using a shape define
 	void CreateVAO(GeometricShapes Shape);
 
@@ -27,14 +28,12 @@ public:
 	//@param 2 - Fragment Shader
 	void CreateShader(VFShaderParams ShaderFilePaths);
 
->>>>>>> Stashed changes
+
 private:
 	//this will hold the window
 	SDL_Window* SdlWindow;
 	//this will allow opneGL to work in sdl
 	SDL_GLContext SdlGLContext;
-<<<<<<< Updated upstream
-=======
 
 	// stack all the VAOs
 	VAOStack VAOs;
@@ -47,5 +46,4 @@ private:
 
 	//single shader
 	ShaderPtr Shader;
->>>>>>> Stashed changes
 };

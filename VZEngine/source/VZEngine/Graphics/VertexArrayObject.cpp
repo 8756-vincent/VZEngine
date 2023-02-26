@@ -26,6 +26,10 @@ VertexArrayObject::VertexArrayObject(GeometricShapes ChosenShape)
 		ChosenPositions = CirclePosition;
 		ChosenIndices = CircleIndices;
 		break;
+	case GeometricShapes::Circle20:
+		ChosenPositions = Circle20Position;
+		ChosenIndices = Circle20Indices;
+		break;
 	default:
 		break;
 	}
@@ -74,6 +78,9 @@ VertexArrayObject::VertexArrayObject(GeometricShapes ChosenShape)
 		(void*)0			// offset if how many number to skip in the matrix
 	);
 
+	//enable the vertex array
+	glEnableVertexAttribArray(0);
+
 	//Assign the colour to the shader
 	glVertexAttribPointer(
 		1,
@@ -84,7 +91,7 @@ VertexArrayObject::VertexArrayObject(GeometricShapes ChosenShape)
 	);
 
 	//enableing the colour array
-	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
 
 
 	// clear the buffer

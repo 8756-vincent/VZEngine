@@ -33,7 +33,8 @@ struct ShapeData {
 enum class GeometricShapes {
 	Triangle = 0,
 	Polygon,
-	Circle
+	Circle,
+	Circle20
 };
 
 //shtore the parameter required to create a shader program

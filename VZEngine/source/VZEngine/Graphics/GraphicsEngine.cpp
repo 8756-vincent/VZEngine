@@ -126,19 +126,34 @@ void GraphicsEngine::Draw()
 		//2-circle
 		if (index == 0)
 		{
-			transform = glm::translate(transform, glm::vec3(0.5f, 0.0, 0.0f));
-			//radians is rotation amount
-			//vec3 is the direction to totate in
-			transform = glm::rotate(transform, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-			transform = glm::scale(transform, glm::vec3(1.0f, 1.0f, 1.0f));
+			transform = glm::translate(transform, glm::vec3(-0.8f, 0.5, 0.0f));			
+			transform = glm::scale(transform, glm::vec3(0.2f, 0.2f, 1.0f));
 
 		}
 		else if (index == 1)
 		{
-			transform = glm::translate(transform, glm::vec3(-0.5f, 0.0, 0.0f));
+			transform = glm::translate(transform, glm::vec3(0.6f, 0.5, 0.0f));
+			transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 1.0f));
+
+			//radians is rotation amount
+			//vec3 is the direction to totate in
+			transform = glm::rotate(transform, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		}
+		else if (index == 2)
+		{
+			transform = glm::translate(transform, glm::vec3(-0.5f, -0.5, 0.0f));
 			//x and y will work for our 2D shapes
 			//z must be larger than - or you wont see the objects (1 is dafault)
-			transform = glm::scale(transform, glm::vec3(1.0f, 1.0f, 1.0f));
+			transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 1.0f));
+
+		}
+		else if (index == 3)
+		{
+			transform = glm::translate(transform, glm::vec3(0.5f, -0.5, 0.0f));
+			//x and y will work for our 2D shapes
+			//z must be larger than - or you wont see the objects (1 is dafault)
+			transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 1.0f));
+
 		}
 
 		Shader->SetMat4("transform", transform);
@@ -162,8 +177,7 @@ SDL_Window* GraphicsEngine::GetWindow() const
 
 void GraphicsEngine::CreateVAO(GeometricShapes Shape)
 {
-	VAOPtr NewVAO = make_shared<VAO>(GeometricShapes::Triangle);
-
+	VAOPtr NewVAO = make_shared<VAO>(Shape);
 	VAOs.push_back(NewVAO);
 }
 

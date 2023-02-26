@@ -54,7 +54,8 @@ void Game::Run()
 		//create VAO
 		Graphics->CreateVAO(GeometricShapes::Triangle);
 		Graphics->CreateVAO(GeometricShapes::Polygon);
-		//Graphics->CreateVAO(GeometricShapes::Circle);
+		Graphics->CreateVAO(GeometricShapes::Circle);
+		Graphics->CreateVAO(GeometricShapes::Circle20);
 	}
 
 	while (!bIsGameOver)

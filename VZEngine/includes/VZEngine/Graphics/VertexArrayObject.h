@@ -1,10 +1,10 @@
 #pragma once
 #include "VZEngine/CoreMinimal.h"
 const PositionMatrix TrianglePosition{
-	//x		//y		//z		//colour
-	-0.5f,	-0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	//bottom left
-	 0.5f,	-0.5f,	0.0f,	0.0f, 1.0f, 0.0f,	//bottom right
-	 0.0f,	 0.5f,	0.0f,	0.0f, 0.0f, 1.0f	//top
+	//x		//y		//z		//colour			//tex coords
+	-0.5f,	-0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f,	//bottom left
+	 0.5f,	-0.5f,	0.0f,	0.0f, 1.0f, 0.0f,	1.0f, 0.0f,	//bottom right
+	 0.0f,	 0.5f,	0.0f,	0.0f, 0.0f, 1.0f,	0.5f, 1.0f	//top
 
 };
 const IndicesMatrix TriangleIndices{
@@ -12,11 +12,11 @@ const IndicesMatrix TriangleIndices{
 };
 
 const PositionMatrix PolyPosition{
-	//x		//y		//z		//colour
-	-0.5f,	-0.5f,	0.0f,	1.0f, 1.0f, 0.0f,	//bottom left
-	 0.5f,	-0.5f,	0.0f,	1.0f, 1.0f, 0.0f,	//bottom right
-	 0.5f,	 0.5f,	0.0f,	1.0f, 1.0f, 0.0f,	//top right
-	-0.5f,	 0.5f,	0.0f,	1.0f, 1.0f, 0.0f	//top left
+	//x		//y		//z		//colour			//tex coords
+	-0.5f,	-0.5f,	0.0f,	1.0f, 1.0f, 0.0f,	0.0f, 0.0f,	//bottom left
+	 0.5f,	-0.5f,	0.0f,	1.0f, 1.0f, 0.0f,	1.0f, 0.0f,	//bottom right
+	 0.5f,	 0.5f,	0.0f,	1.0f, 1.0f, 0.0f,	1.0f, 1.0f,	//top right
+	-0.5f,	 0.5f,	0.0f,	1.0f, 1.0f, 0.0f,	0.0f, 1.0f	//top left
 
 };
 const IndicesMatrix PolyIndices{
@@ -26,36 +26,33 @@ const IndicesMatrix PolyIndices{
 
 const PositionMatrix CirclePosition{
 	//x		//y		//z
-	 0.0f,	 0.0f,	0.0f,	1.0f, 0.0f, 0.0f,	//middle				0
+	 0.0f,	 0.0f,	0.0f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f,		//middle				0
 
 	 //top
-	 0.7f,	 0.0f,	0.0f,	1.0f, 1.0f, 0.0f,	//tri-right				1
-	 0.5f,	 0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	//tri-right				2
+	 0.7f,	 0.0f,	0.0f,	1.0f, 1.0f, 0.0f,	0.0f, 0.0f,		//tri-right				1
+	 0.5f,	 0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f,		//tri-right				2
 
-	-0.7f,	 0.0f,	0.0f,	1.0f, 0.0f, 1.0f,	//tri-left 				3
-	-0.5f,	 0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	//tri-left 				4
+	-0.7f,	 0.0f,	0.0f,	1.0f, 0.0f, 1.0f,	0.0f, 0.0f,		//tri-left 				3
+	-0.5f,	 0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f,		//tri-left 				4
 
-	 0.0f,	 0.7f,	0.0f,	1.0f, 1.0f, 0.0f,	//tri-right				5
-	 0.5f,	 0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	//tri-right				6
+	 0.0f,	 0.7f,	0.0f,	1.0f, 1.0f, 0.0f,	0.0f, 0.0f,		//tri-right				5
+	 0.5f,	 0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f,		//tri-right				6
 
-	 0.0f,	 0.7f,	0.0f,	1.0f, 0.0f, 1.0f,	//tri-left				7
-	-0.5f,	 0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	//tri-left				8
+	 0.0f,	 0.7f,	0.0f,	1.0f, 0.0f, 1.0f,	0.0f, 0.0f,		//tri-left				7
+	-0.5f,	 0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f,		//tri-left				8
 
 	//bottom
-	0.7f,	 0.0f,	0.0f,	1.0f, 1.0f, 0.0f,	//tri-right				9
-	0.5f,	-0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	//tri-right				10
+	0.7f,	 0.0f,	0.0f,	1.0f, 1.0f, 0.0f,	0.0f, 0.0f,		//tri-right				9
+	0.5f,	-0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f,		//tri-right				10
 
-	-0.7f,	 0.0f,	0.0f,	1.0f, 0.0f, 1.0f,	//tri-left 				11
-	-0.5f,	 -0.5f,	0.0f,	1.0f, 1.0f, 0.0f,	//tri-left 				12
+	-0.7f,	 0.0f,	0.0f,	1.0f, 0.0f, 1.0f,	0.0f, 0.0f,		//tri-left 				11
+	-0.5f,	 -0.5f,	0.0f,	1.0f, 1.0f, 0.0f,	0.0f, 0.0f,		//tri-left 				12
 
-	 0.0f,	 -0.7f,	0.0f,	1.0f, 1.0f, 1.0f,	//tri-right				13
-	 0.5f,	 -0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	//tri-right				14
+	 0.0f,	 -0.7f,	0.0f,	1.0f, 1.0f, 1.0f,	0.0f, 0.0f,		//tri-right				13
+	 0.5f,	 -0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f,		//tri-right				14
 
-	 0.0f,	 -0.7f,	0.0f,	1.0f, 0.0f, 0.0f,	//tri-left				15
-	-0.5f,	 -0.5f,	0.0f,	1.0f, 1.0f, 1.0f	//tri-left				16
-
-	
-
+	 0.0f,	 -0.7f,	0.0f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f,		//tri-left				15
+	-0.5f,	 -0.5f,	0.0f,	1.0f, 1.0f, 1.0f,	0.0f, 0.0f,		//tri-left				16
 };
 const IndicesMatrix CircleIndices{
 	0, 1, 2,	// right
@@ -69,37 +66,37 @@ const IndicesMatrix CircleIndices{
 };
 
 const PositionMatrix Circle20Position{
-	//x		//y		//z
-	 0.0f,	 0.0f,	0.0f,			1.0f, 1.0f, 1.0f,	//middle				0
+	//x		//y		//z								//tex coords
+	 0.0f,	 0.0f,	0.0f,	1.0f, 1.0f, 1.0f,		0.0f, 0.0f,	//middle				0
 	 //baseline
-	 0.7f,	 0.0f,	0.0f,			1.0f, 0.0f, 0.0f,	//tri-right				1
+	 0.7f,	 0.0f,	0.0f,	1.0f, 0.0f, 0.0f,		0.0f, 0.0f,//tri-right				1
 
-	 0.6f,	 0.35f,	0.0f,			0.0f, 1.0f, 0.0f,	//tri-right				2
-	 0.35f,	 0.6f,	0.0f,			0.0f, 0.0f, 1.0f,	//tri-left 				3
+	 0.6f,	 0.35f,	0.0f,	0.0f, 1.0f, 0.0f,		0.0f, 0.0f,//tri-right				2
+	 0.35f,	 0.6f,	0.0f,	0.0f, 0.0f, 1.0f,		0.0f, 0.0f,//tri-left 				3
 
 	 //baseline
-	 0.0f,	 0.7f,	0.0f,			1.0f, 0.0f, 0.0f,	//tri-left 				4
+	 0.0f,	 0.7f,	0.0f,	1.0f, 0.0f, 0.0f,		0.0f, 0.0f,//tri-left 				4
 
-	-0.35f,	 0.6f,	0.0f,			0.0f, 1.0f, 0.0f,	//tri-right				5
-	-0.6f,	 0.35f,	0.0f,			0.0f, 0.0f, 1.0f,	//tri-right				6
+	-0.35f,	 0.6f,	0.0f,	0.0f, 1.0f, 0.0f,		0.0f, 0.0f,//tri-right				5
+	-0.6f,	 0.35f,	0.0f,	0.0f, 0.0f, 1.0f,		0.0f, 0.0f,//tri-right				6
 
 	//baseline
-	-0.7f,	 0.0f,	0.0f,			1.0f, 0.0f, 0.0f,	//tri-left				7
+	-0.7f,	 0.0f,	0.0f,	1.0f, 0.0f, 0.0f,		0.0f, 0.0f,//tri-left				7
 
 	//baseline dup
-	 0.7f,	 0.0f,	0.0f,			1.0f, 0.0f, 0.0f,	//tri-right				8
+	 0.7f,	 0.0f,	0.0f,	1.0f, 0.0f, 0.0f,		0.0f, 0.0f,//tri-right				8
 
-	 0.6f,	 -0.35f,	0.0f,			0.0f, 0.0f, 1.0f,	//tri-right				9
-	 0.35f,	 -0.6f,	0.0f,			1.0f, 0.0f, 0.0f,	//tri-left 				10
+	 0.6f,	-0.35f,0.0f,	0.0f, 0.0f, 1.0f,		0.0f, 0.0f,//tri-right				9
+	 0.35f,	-0.6f,	0.0f,	1.0f, 0.0f, 0.0f,		0.0f, 0.0f,//tri-left 				10
 
 	 //baseline
-	 0.0f,	 -0.7f,	0.0f,			0.0f, 1.0f, 0.0f,	//tri-left 				11
+	 0.0f,	 -0.7f,	0.0f,	0.0f, 1.0f, 0.0f,		0.0f, 0.0f,//tri-left 				11
 
-	-0.35f,	 -0.6f,	0.0f,			0.0f, 0.0f, 1.0f,	//tri-right				12
-	-0.6f,	 -0.35f,	0.0f,			1.0f, 0.0f, 0.0f,	//tri-right				13
+	-0.35f,	 -0.6f,	0.0f,	0.0f, 0.0f, 1.0f,		0.0f, 0.0f,//tri-right				12
+	-0.6f,	 -0.35f,0.0f,	1.0f, 0.0f, 0.0f,		0.0f, 0.0f,//tri-right				13
 
 	//baseline dup
-	-0.7f,	 0.0f,	0.0f,			1.0f, 0.0f, 0.0f,	//tri-left				14
+	-0.7f,	 0.0f,	0.0f,	1.0f, 0.0f, 0.0f,		0.0f, 0.0f,//tri-left				14
 
 
 

@@ -1,6 +1,7 @@
 #include "VZEngine/Game.h"
 #include "VZEngine/Graphics/GraphicsEngine.h"
 
+
 Game& Game::GetGameInstance()
 {
 	static Game* GameInstance = new Game();
@@ -47,9 +48,12 @@ void Game::Run()
 	if (!bIsGameOver)
 	{
 		Graphics->CreateShader({
-			L"Game/Shaders/SimpleShader/SimpleShader.svert",
-			L"Game/Shaders/SimpleShader/SimpleShader.sfrag"
+			L"Game/Shaders/TextureShader/TextureShader.svert",
+			L"Game/Shaders/TextureShader/TextureShader.sfrag"
 			});
+
+		Graphics->CreateTexture("Game/Texture/multiCube.jpg");
+		Graphics->CreateTexture("Game/Texture/letterGrid.jpg");
 
 		//create VAO
 		Graphics->CreateVAO(GeometricShapes::Triangle);

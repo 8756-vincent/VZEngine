@@ -4,6 +4,7 @@
 #include "VZEngine/Graphics/ShaderProgram.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "VZEngine/Graphics/texture.h"
 
 GraphicsEngine::GraphicsEngine()
 {
@@ -14,7 +15,9 @@ GraphicsEngine::GraphicsEngine()
 
 GraphicsEngine::~GraphicsEngine()
 {
-	cout << "Destory Graphics Engine" << endl;
+	//remove textures from memory
+	TextureStack.clear();
+
 	//this will handle deleting the SDL window frome memory
 	SDL_DestroyWindow(SdlWindow);
 	//destory the GL context for SDL
@@ -33,10 +36,10 @@ bool GraphicsEngine::InitGE(const char* WTitle, bool bFullscreen, int WWidth, in
 		cout << "SDL failed" << SDL_GetError() << endl;
 		return false;
 	}
-	//use OpenGl 3.1 and se dafault attributes
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	//use OpenGl 4.6 and set dafault attributes
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
@@ -73,7 +76,7 @@ bool GraphicsEngine::InitGE(const char* WTitle, bool bFullscreen, int WWidth, in
 	if (SdlGLContext == NULL)
 	{
 		cout << "SDL GL Context failed: " << SDL_GetError() << endl;
-
+		return false;
 	}
 
 	//to make glew work we need to mark experimental true
@@ -192,6 +195,46 @@ void GraphicsEngine::CreateShader(VFShaderParams ShaderFilePaths)
 	//add the shader to out graphics engine
 	Shader = NewShader;
 
+}
+
+TexturePtr GraphicsEngine::CreateTexture(const char* FilePath)
+{
+	TexturePtr NewTexture = nullptr;
+
+	//Run Through all the textures and check if one with the same path exits
+	for (TexturePtr TestTexture : TextureStack)
+	{
+		//if we find a texture with the same file path
+		if (TestTexture->GetFilePath() == FilePath)
+		{
+			//pass in the already created texture
+			NewTexture = TestTexture;
+			cout << "Texture found! Assigning current texture." << endl;
+			break;
+		}
+	}
+
+	//if there is no texture already in existance
+	if (NewTexture == nullptr)
+	{
+		cout << " Creating new texture..." << endl;
+
+		//create a new texture as a shard_ptr
+		NewTexture = make_shared <Texture>();
+
+		//if the file was found assign it to the texture stack
+		if (NewTexture->CreateTextureFromFilePath(FilePath)){
+			cout << "Texture "
+				<< NewTexture->GetID()
+				<< " creaeting success!Adding to Texture Stack." 
+				<< endl;
+
+			//add the texture to the texture stack
+			TextureStack.push_back(NewTexture);
+		}
+	}
+
+	return NewTexture;
 }
 
 void GraphicsEngine::HandleWireFrameMode(bool bShowWireFrameMode)

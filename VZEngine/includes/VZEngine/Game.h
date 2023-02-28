@@ -37,5 +37,8 @@ private:
 	//boolean that ends the game
 	bool bIsGameOver;
 
+	//
 	GraphicsEnginePtr Graphics;
+
+
 };

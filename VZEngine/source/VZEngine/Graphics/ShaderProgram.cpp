@@ -60,6 +60,12 @@ void ShaderProgram::SetMat4(const char* ShaderVariable, glm::mat4 Value)
 	glUniformMatrix4fv(glGetUniformLocation(ProgramID, ShaderVariable), 1, GL_FALSE, value_ptr(Value));
 }
 
+void ShaderProgram::SetInt(const char* ShaderVarName, int Value)
+{
+	//find the uniform int value with the ShaderVarName and assign it the value
+	glUniform1i(glGetUniformLocation(ProgramID, ShaderVarName), Value);
+}
+
 bool ShaderProgram::AttachShader(const wchar_t* ShaderFilePath, ShaderTypes Type)
 {
 	//store shader code

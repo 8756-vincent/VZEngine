@@ -1,6 +1,6 @@
 #include "VZEngine/Game.h"
 #include "VZEngine/Graphics/GraphicsEngine.h"
-
+#include "VZEngine/Graphics/Mesh.h"
 
 Game& Game::GetGameInstance()
 {
@@ -47,19 +47,24 @@ void Game::Run()
 {
 	if (!bIsGameOver)
 	{
-		Graphics->CreateShader({
+		ShaderPtr TextureShader = Graphics->CreateShader({
 			L"Game/Shaders/TextureShader/TextureShader.svert",
 			L"Game/Shaders/TextureShader/TextureShader.sfrag"
 			});
 
-		Graphics->CreateTexture("Game/Texture/multiCube.jpg");
-		Graphics->CreateTexture("Game/Texture/letterGrid.jpg");
+		TexturePtr TCube = Graphics->CreateTexture("Game/Texture/multiCube.jpg");
+		TexturePtr TGrid = Graphics->CreateTexture("Game/Texture/letterGrid.jpg");
 
 		//create VAO
-		Graphics->CreateVAO(GeometricShapes::Triangle);
-		Graphics->CreateVAO(GeometricShapes::Polygon);
-		Graphics->CreateVAO(GeometricShapes::Circle);
-		Graphics->CreateVAO(GeometricShapes::Circle20);
+		Poly = Graphics->CreateSimpleMeshShape(GeometricShapes::Polygon, TextureShader, { TCube });
+		Tri = Graphics->CreateSimpleMeshShape(GeometricShapes::Triangle, TextureShader, { TGrid });
+
+		Poly->Transform.Location.x = 0.5f;
+		Tri->Transform.Location.x = -0.5f;
+
+		Poly->Transform.Scale = Vector3(0.5f);
+		Tri->Transform.Scale = Vector3(0.8f);
+
 	}
 
 	while (!bIsGameOver)
@@ -98,7 +103,35 @@ void Game::ProcessInput()
 
 void Game::Update()
 {
+	//set delta time first always
+	static double LastFrameTime = 0.0;
+	//set the current time since the game has passed
+	double CurrentFrameTime = static_cast<double>(SDL_GetTicks64());
+	//find the time differences between the last and current frame
+	double NewDeltaTime = CurrentFrameTime - LastFrameTime;
+	//set delta time as seconds
+	DeltaTime = NewDeltaTime / 1000.0;
+	//update the last frame time for the next update
+	LastFrameTime = CurrentFrameTime;
 
+	Poly->Transform.Rotation.z += 50.0f * GetDeltaTime();
+
+	static double time = 0.0;
+	time = +DeltaTime;
+	cout << time << endl;
+
+	static int MoveUp = 1.0f;
+	if (Tri->Transform.Location.y > 0.5f)
+	{
+		MoveUp = -1.0f;
+	}
+	
+	if (Tri->Transform.Location.y < -0.5f)
+	{
+		MoveUp = 1.0f;
+	}
+
+	Tri->Transform.Location.y += (2.0f * MoveUp) * GetDeltaTime();
 }
 
 void Game::Draw()

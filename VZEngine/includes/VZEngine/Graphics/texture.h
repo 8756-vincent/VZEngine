@@ -24,7 +24,7 @@ public:
 	void BindTexture();
 
 	//assigns the relvant data to the current loaded texture
-	void ActivateTexture();
+	void ActivateTexture(vzuint Index);
 
 	//clear the texture in open gl
 	static void RestTexture();

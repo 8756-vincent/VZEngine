@@ -13,6 +13,12 @@ public:
 	//load the window
 	void Start(const char* WTitle, bool bFullscreen, int WWidth, int WHeight);
 
+	//get precise delta time
+	double GetDeltaTime() { return DeltaTime; }
+
+	//gets less precise delta time
+	float GetFDeltaTime() { return static_cast<float>(DeltaTime); }
+
 private:
 	Game();
 	~Game();
@@ -37,8 +43,13 @@ private:
 	//boolean that ends the game
 	bool bIsGameOver;
 
-	//
+	//shared pointer to the graphics class
 	GraphicsEnginePtr Graphics;
 
+	//the time between each frame
+	double DeltaTime;
 
+	//temp mesh var
+	MeshPtr Tri;
+	MeshPtr Poly;
 };

@@ -1,6 +1,6 @@
 #include "VZEngine/Graphics/GraphicsEngine.h"
 #include "GL/glew.h"
-#include "VZEngine/Graphics/VertexArrayObject.h"
+#include "VZEngine/Graphics/Mesh.h"
 #include "VZEngine/Graphics/ShaderProgram.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -15,6 +15,12 @@ GraphicsEngine::GraphicsEngine()
 
 GraphicsEngine::~GraphicsEngine()
 {
+	//clear the mesh stack
+	MeshStack.clear();
+
+	//clear shader
+	Shader = nullptr;
+
 	//remove textures from memory
 	TextureStack.clear();
 
@@ -114,61 +120,9 @@ void GraphicsEngine::Draw()
 
 	HandleWireFrameMode(false);
 
-	vzuint index = 0;
-
-
-
-	for (VAOPtr VAO : VAOs) {
-		Shader->RunShader();
-
-		//move the object
-		glm::mat4 transform = glm::mat4(1.0f);
-
-		//0-triangle
-		//1-poly
-		//2-circle
-		if (index == 0)
-		{
-			transform = glm::translate(transform, glm::vec3(-0.8f, 0.5, 0.0f));			
-			transform = glm::scale(transform, glm::vec3(0.2f, 0.2f, 1.0f));
-
-		}
-		else if (index == 1)
-		{
-			transform = glm::translate(transform, glm::vec3(0.6f, 0.5, 0.0f));
-			transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 1.0f));
-
-			//radians is rotation amount
-			//vec3 is the direction to totate in
-			transform = glm::rotate(transform, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-		}
-		else if (index == 2)
-		{
-			transform = glm::translate(transform, glm::vec3(-0.5f, -0.5, 0.0f));
-			//x and y will work for our 2D shapes
-			//z must be larger than - or you wont see the objects (1 is dafault)
-			transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 1.0f));
-
-		}
-		else if (index == 3)
-		{
-			transform = glm::translate(transform, glm::vec3(0.5f, -0.5, 0.0f));
-			//x and y will work for our 2D shapes
-			//z must be larger than - or you wont see the objects (1 is dafault)
-			transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 1.0f));
-
-		}
-
-		Shader->SetMat4("transform", transform);
-
-
-		//draw each VAO
-		VAO->Draw();
-
-		index++;
+	for (MeshPtr LMesh : MeshStack) {
+		LMesh->Draw();
 	}
-
-	index = 0;
 
 	PresentGraphics();
 }
@@ -178,13 +132,22 @@ SDL_Window* GraphicsEngine::GetWindow() const
 	return SdlWindow;
 }
 
-void GraphicsEngine::CreateVAO(GeometricShapes Shape)
+MeshPtr GraphicsEngine::CreateSimpleMeshShape(GeometricShapes Shape, ShaderPtr MeshShader, TexturePtrStack MeshTextures)
 {
-	VAOPtr NewVAO = make_shared<VAO>(Shape);
-	VAOs.push_back(NewVAO);
+	//initialise a new mesh class
+	MeshPtr NewMesh = make_shared<Mesh>();
+
+	//make sure it worked
+	if (!NewMesh->CreateSimpleShape(Shape, MeshShader, MeshTextures))
+		return  nullptr;
+
+	//add mesh into the stack of meshes to be rendered
+	MeshStack.push_back(NewMesh);
+
+	return NewMesh;
 }
 
-void GraphicsEngine::CreateShader(VFShaderParams ShaderFilePaths)
+ShaderPtr GraphicsEngine::CreateShader(VFShaderParams ShaderFilePaths)
 {
 	//create a new shader class
 	ShaderPtr NewShader = make_shared<ShaderProgram>();
@@ -194,6 +157,8 @@ void GraphicsEngine::CreateShader(VFShaderParams ShaderFilePaths)
 
 	//add the shader to out graphics engine
 	Shader = NewShader;
+
+	return NewShader;
 
 }
 

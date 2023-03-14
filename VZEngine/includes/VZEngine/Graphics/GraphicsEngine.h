@@ -63,4 +63,6 @@ public:
 	//default camera position
 	Vector3 EngineDefaultCam;
 
+	float DefaultFOV;
+
 };

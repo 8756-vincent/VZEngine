@@ -11,7 +11,11 @@ GraphicsEngine::GraphicsEngine()
 	SdlWindow = nullptr;
 	SdlGLContext = NULL;
 	bWireFrameMode = false;
-	EngineDefaultCam = Vector3(0.0f, 0.0f, -2.0f);
+	EngineDefaultCam = Vector3(0.0f, 0.0f, -5.0f);
+
+	//angle of the camera planes - basically your zoom
+	DefaultFOV = 70.f;
+	
 }
 
 GraphicsEngine::~GraphicsEngine()
@@ -209,7 +213,9 @@ TexturePtr GraphicsEngine::CreateTexture(const char* FilePath)
 void GraphicsEngine::ApplyScreenTransformation(ShaderPtr Shader)
 {
 	//angle of the camera planes - basically your zoom
-	float FOV = 70.f;
+	float FOV = DefaultFOV;
+
+
 	//position of the camera/view space
 	Vector3 ViewPosition = EngineDefaultCam;
 	//find the size of the screen and calculate the aspect ration

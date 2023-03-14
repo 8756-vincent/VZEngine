@@ -15,20 +15,24 @@ VertexArrayObject::VertexArrayObject(GeometricShapes ChosenShape)
 	switch (ChosenShape)
 	{
 	case GeometricShapes::Triangle:
-		ChosenPositions = TrianglePosition;
+		ChosenPositions = TrianglePositions;
 		ChosenIndices = TriangleIndices;
 		break;
 	case GeometricShapes::Polygon:
-		ChosenPositions = PolyPosition;
+		ChosenPositions = PolyPositions;
 		ChosenIndices = PolyIndices;
 		break;
 	case GeometricShapes::Circle:
-		ChosenPositions = CirclePosition;
+		ChosenPositions = CirclePositions;
 		ChosenIndices = CircleIndices;
 		break;
 	case GeometricShapes::Circle20:
-		ChosenPositions = Circle20Position;
+		ChosenPositions = Circle20Positions;
 		ChosenIndices = Circle20Indices;
+		break;
+	case GeometricShapes::Cube:
+		ChosenPositions = CubePositions;
+		ChosenIndices = CubeIndicies;
 		break;
 	default:
 		break;

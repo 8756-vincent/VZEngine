@@ -1,6 +1,7 @@
 #pragma once
 #include "SLD2/SDL.h"
 #include "VZEngine/CoreMinimal.h"
+#include "VZEngine/Math/Transformation.h"
 
 class GraphicsEngine {
 public:
@@ -32,6 +33,12 @@ public:
 	//avoid duplicates
 	TexturePtr CreateTexture(const char* FilePath);
 
+	//creaete the 3D space for the model to relate itself to
+	//screen and camera coordiantes
+	void ApplyScreenTransformation(ShaderPtr Shader);
+
+	
+
 private:
 	//this will hold the window
 	SDL_Window* SdlWindow;
@@ -51,4 +58,9 @@ private:
 
 	//Store all meshes in the game
 	MeshPtrStack MeshStack;
+
+public:
+	//default camera position
+	Vector3 EngineDefaultCam;
+
 };

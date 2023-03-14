@@ -41,7 +41,8 @@ enum class GeometricShapes {
 	Triangle = 0,
 	Polygon,
 	Circle,
-	Circle20
+	Circle20,
+	Cube
 };
 
 //shtore the parameter required to create a shader program

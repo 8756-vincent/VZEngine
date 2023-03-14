@@ -1,6 +1,8 @@
 #include "VZEngine/Game.h"
 #include "VZEngine/Graphics/GraphicsEngine.h"
 #include "VZEngine/Graphics/Mesh.h"
+#include "VZEngine/Input.h"
+
 
 Game& Game::GetGameInstance()
 {
@@ -33,6 +35,7 @@ Game::Game()
 
 	Graphics = nullptr;
 	bIsGameOver = false;
+	GameInput = new Input();
 }
 
 Game::~Game()
@@ -47,6 +50,10 @@ void Game::Run()
 {
 	if (!bIsGameOver)
 	{
+
+
+		GameInput = new Input();
+
 		ShaderPtr TextureShader = Graphics->CreateShader({
 			L"Game/Shaders/TextureShader/TextureShader.svert",
 			L"Game/Shaders/TextureShader/TextureShader.sfrag"
@@ -56,14 +63,15 @@ void Game::Run()
 		TexturePtr TGrid = Graphics->CreateTexture("Game/Texture/letterGrid.jpg");
 
 		//create VAO
-		Poly = Graphics->CreateSimpleMeshShape(GeometricShapes::Polygon, TextureShader, { TCube });
-		Tri = Graphics->CreateSimpleMeshShape(GeometricShapes::Triangle, TextureShader, { TGrid });
+		Poly = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, { TCube });
+		Poly2 = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, { TGrid });
 
-		Poly->Transform.Location.x = 0.5f;
-		Tri->Transform.Location.x = -0.5f;
 
-		Poly->Transform.Scale = Vector3(0.5f);
-		Tri->Transform.Scale = Vector3(0.8f);
+		Poly->Transform.Location.x = 1.0f;
+		Poly2->Transform.Location.x = -1.0f;
+
+		//Poly->Transform.Location.x = 0.5f;
+		//Poly->Transform.Scale = Vector3(0.5f);
 
 	}
 
@@ -85,20 +93,8 @@ void Game::Run()
 
 void Game::ProcessInput()
 {
-	SDL_Event PollEvent;
-
-	while (SDL_PollEvent(&PollEvent))
-	{
-		switch (PollEvent.type)
-		{
-		case SDL_QUIT: // on close button pressed
-			bIsGameOver = true;
-			break;
-		default:
-			break;
-		}
-
-	}
+	//run the input dectection for our game input
+	GameInput->ProcessInput();
 }
 
 void Game::Update()
@@ -115,9 +111,55 @@ void Game::Update()
 	LastFrameTime = CurrentFrameTime;
 
 	Poly->Transform.Rotation.z += 50.0f * GetDeltaTime();
+	Poly->Transform.Rotation.x += 50.0f * GetDeltaTime();
+	Poly->Transform.Rotation.y += 50.0f * GetDeltaTime();
+	
+	Poly2->Transform.Rotation.z -= 50.0f * GetDeltaTime();
+	Poly2->Transform.Rotation.x -= 50.0f * GetDeltaTime();
+	Poly2->Transform.Rotation.y -= 50.0f * GetDeltaTime();
 
-	static double time = 0.0;
-	time = +DeltaTime;
+	Vector3 CameraInput = Vector3(0.0f);
+
+	if(GameInput->IsKeyDown(SDL_SCANCODE_W)){
+		CameraInput.z = 1.0f;
+	}
+
+	if(GameInput->IsKeyDown(SDL_SCANCODE_S)){
+		CameraInput.z = -1.0f;
+	}
+
+	if (GameInput->IsKeyDown(SDL_SCANCODE_A)) {
+		CameraInput.x = 1.0f;
+	}
+
+	if (GameInput->IsKeyDown(SDL_SCANCODE_D)) {
+		CameraInput.x = -1.0f;
+	}
+
+	if (GameInput->IsKeyDown(SDL_SCANCODE_Q)) {
+		CameraInput.y = -1.0f;
+	}
+
+	if (GameInput->IsKeyDown(SDL_SCANCODE_E)) {
+		CameraInput.y = 1.0f;
+	}/*
+	if (GameInput->IsKeyDown(SDL_SCANCODE_R)) {
+		CameraInput.FOV = 1.0f;
+	}
+	if (GameInput->IsKeyDown(SDL_SCANCODE_T)) {
+		CameraInput.y = 1.0f;
+	}
+	if (GameInput->IsKeyDown(SDL_SCANCODE_Y)) {
+		CameraInput.y = 1.0f;
+	}*/
+
+	CameraInput *= 1.0f * GetDeltaTime();
+
+	Graphics->EngineDefaultCam += CameraInput;
+
+	/*static double time = 0.0;
+
+	time += DeltaTime;
 	cout << time << endl;
 
 	static int MoveUp = 1.0f;
@@ -131,7 +173,7 @@ void Game::Update()
 		MoveUp = 1.0f;
 	}
 
-	Tri->Transform.Location.y += (2.0f * MoveUp) * GetDeltaTime();
+	Tri->Transform.Location.y += (2.0f * MoveUp) * GetDeltaTime();*/
 }
 
 void Game::Draw()
@@ -141,5 +183,5 @@ void Game::Draw()
 
 void Game::CloseGame()
 {
-
+	delete GameInput;
 }

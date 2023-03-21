@@ -26,6 +26,9 @@ class Mesh;
 typedef shared_ptr<Mesh> MeshPtr;
 typedef	vector<MeshPtr> MeshPtrStack;
 
+class Camera;
+typedef shared_ptr<Camera> CameraPtr;
+
 typedef vector<float> PositionMatrix;
 typedef vector<vzuint> IndicesMatrix;
 

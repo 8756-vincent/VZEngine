@@ -136,6 +136,7 @@
     <ClInclude Include="Includes\stb_image\stb_image.h" />
     <ClInclude Include="includes\VZEngine\CoreMinimal.h" />
     <ClInclude Include="Includes\VZEngine\Game.h" />
+    <ClInclude Include="includes\VZEngine\Graphics\Camera.h" />
     <ClInclude Include="Includes\VZEngine\Graphics\GraphicsEngine.h" />
     <ClInclude Include="includes\VZEngine\Graphics\Mesh.h" />
     <ClInclude Include="includes\VZEngine\Graphics\ShaderProgram.h" />
@@ -148,6 +149,7 @@
     <ClCompile Include="Game\Main.cpp" />
     <ClCompile Include="source\stb_image\stb_image.cpp" />
     <ClCompile Include="source\VZEngine\Game.cpp" />
+    <ClCompile Include="source\VZEngine\Graphics\Camera.cpp" />
     <ClCompile Include="source\VZEngine\Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="source\VZEngine\Graphics\Mesh.cpp" />
     <ClCompile Include="source\VZEngine\Graphics\ShaderProgram.cpp" />

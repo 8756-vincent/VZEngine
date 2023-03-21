@@ -18,3 +18,9 @@ struct CTransform {
 	}
 
 };
+
+struct CDirection {
+	Vector3 Forward = Vector3(0.0f);
+	Vector3 Right = Vector3(0.0f);
+	Vector3 Up = Vector3(0.0f);
+};

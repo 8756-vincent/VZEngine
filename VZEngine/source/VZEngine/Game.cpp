@@ -69,7 +69,7 @@ void Game::Run()
 
 
 		Poly->Transform.Location = Vector3(1.0f,0.0f,0.0f);
-		Poly2->Transform.Location = Vector3(1.0f, 0.0f, 0.0f);
+		Poly2->Transform.Location = Vector3(-1.0f, 0.0f, 0.0f);
 	}
 
 	while (!bIsGameOver)
@@ -151,8 +151,8 @@ void Game::Update()
 	Vector3 NewLocation = Graphics->EngineDefaultCam->GetTransform().Location += CameraInput;
 
 	if (GameInput->IsMouseButtonDown(MouseButtons::RIGHT)) {
-		Graphics->EngineDefaultCam->RotatePitch(-GameInput->MouseYDelta * GetDeltaTime() * 50.0f);
-		Graphics->EngineDefaultCam->RotateYaw(GameInput->MouseXDelta * GetDeltaTime() * 50.0f);
+		Graphics->EngineDefaultCam->RotatePitch(-GameInput->MouseYDelta * GetDeltaTime() * 25.0f);
+		Graphics->EngineDefaultCam->RotateYaw(GameInput->MouseXDelta * GetDeltaTime() * 25.0f);
 	}
 	Graphics->EngineDefaultCam->Translate(NewLocation);
 

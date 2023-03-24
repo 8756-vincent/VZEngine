@@ -30,7 +30,8 @@ void Camera::RotatePitch(float Amount)
 
 	if (Transform.Rotation.x > 89.0f)
 		Transform.Rotation.x = 89.0f;
-	if (Transform.Rotation.x < 89.0f)
+
+	if (Transform.Rotation.x < -89.0f)
 		Transform.Rotation.x = -89.0f;
 
 	UpdateDirectionVectors();
@@ -54,7 +55,7 @@ void Camera::UpdateDirectionVectors()
 
 	//x position
 	//cosine of the yaw * cosine of the Pitch
-	ForwardDirection.x = cos(glm::radians(Transform.Rotation.y) * cos(glm::radians(Transform.Location.x)));
+	ForwardDirection.x = cos(glm::radians(Transform.Rotation.y)) * cos(glm::radians(Transform.Rotation.x));
 	
 	//y position
 	//sine of the Pitch
@@ -62,7 +63,7 @@ void Camera::UpdateDirectionVectors()
 	
 	//z postion
 	//sin of the Yaw and the cosine of the Pitxh
-	ForwardDirection.z = sin(glm::radians(Transform.Location.y) * cos(glm::radians(Transform.Location.x)));
+	ForwardDirection.z = sin(glm::radians(Transform.Rotation.y)) * cos(glm::radians(Transform.Rotation.x));
 
 	//normalise the direction to update the values to be between 0 and 1
 	ForwardDirection = glm::normalize(ForwardDirection);

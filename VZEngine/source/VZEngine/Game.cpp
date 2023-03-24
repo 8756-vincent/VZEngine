@@ -62,7 +62,7 @@ void Game::Run()
 		
 		TexturePtr TCube = Graphics->CreateTexture("Game/Texture/multiCube.jpg");
 		TexturePtr TSus = Graphics->CreateTexture("Game/Texture/sus.png");
-		TexturePtr TGrid = Graphics->CreateTexture("Game/Texture/letterGrid.jpg");
+		TexturePtr TGrid = Graphics->CreateTexture("Game/Texture/concrete.jpg");
 		TexturePtr TTransparent = Graphics->CreateTexture("Game/Texture/transparent.png");
 
 
@@ -148,9 +148,6 @@ void Game::Update()
 	if (GameInput->IsKeyDown(SDL_SCANCODE_E)) {
 		CameraInput += -CamDirections.Up;
 	}
-	if (GameInput->IsKeyDown(SDL_SCANCODE_H)) {
-		
-	}
 
 	//FOV
 	float NewFOV = Graphics->EngineDefaultCam->GetCameraData().FOV;
@@ -198,12 +195,18 @@ void Game::Update()
 	//set the cam on the new location
 	Graphics->EngineDefaultCam->Translate(NewLocation);
 	//seeting new FOV
-	Graphics->EngineDefaultCam->FOV(NewFOV);
+	Graphics->EngineDefaultCam->FOV(NewFOV);	
 	
+	//Gravity
 	
-	////Gravity
-	//Vector3 gravity = Vector3(0.0f,1.0f,0.0f);
+
+
+	Vector3 gravity = Vector3(0.0f,1.0f,0.0f);
 	//bool Gravity = true;
+	/*if (Graphics->EngineDefaultCam->GetDirection().Up == gravity)
+	{
+		cout << "Im don with this gravity" << endl;
+	}*/
 
 	//if (GameInput->IsKeyDown(SDL_SCANCODE_G))
 	//{

@@ -85,7 +85,7 @@ void Input::HelpMenu()
 	cout << "5. Mouse Scroll Down decrease FOV" << endl;
 	cout << "6. R to reset FOV" << endl;
 	cout << "7. LShift to go faster" << endl;
-	cout << "8. LCtrl to go slow walk/speed" << endl;
+	cout << "8. LCtrl to go slow walk/speed" << endl << endl;
 }
 
 bool Input::IsMouseButtonDown(MouseButtons Button)

@@ -230,8 +230,6 @@ void GraphicsEngine::ApplyScreenTransformation(ShaderPtr Shader)
 	
 	Shader->SetMat4("view", view);
 	Shader->SetMat4("projection", projection);
-
-
 }
 
 void GraphicsEngine::HandleWireFrameMode(bool bShowWireFrameMode)

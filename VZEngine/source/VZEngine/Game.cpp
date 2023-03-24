@@ -59,17 +59,20 @@ void Game::Run()
 			L"Game/Shaders/TextureShader/TextureShader.svert",
 			L"Game/Shaders/TextureShader/TextureShader.sfrag"
 			});
-
+		
 		TexturePtr TCube = Graphics->CreateTexture("Game/Texture/multiCube.jpg");
+		TexturePtr TSus = Graphics->CreateTexture("Game/Texture/sus.png");
 		TexturePtr TGrid = Graphics->CreateTexture("Game/Texture/letterGrid.jpg");
+		TexturePtr TTransparent = Graphics->CreateTexture("Game/Texture/transparent.png");
+
 
 		//create VAO
-		Poly = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, { TCube });
-		Poly2 = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, { TGrid, TCube });
+		Poly = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, { TCube, TTransparent });
+		Poly2 = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, { TSus ,TGrid});
 
 
-		Poly->Transform.Location = Vector3(1.0f,0.0f,0.0f);
-		Poly2->Transform.Location = Vector3(-1.0f, 0.0f, 0.0f);
+		Poly->Transform.Location = Vector3(0.0f,1.0f,0.0f);
+		Poly2->Transform.Location = Vector3(-0.0f, -1.0f, 0.0f);
 	}
 
 	while (!bIsGameOver)
@@ -194,7 +197,7 @@ void Game::Update()
 	//seeting new FOV
 	Graphics->EngineDefaultCam->FOV(NewFOV);
 	
-
+	
 	////Gravity
 	//Vector3 gravity = Vector3(0.0f,1.0f,0.0f);
 	//bool Gravity = true;

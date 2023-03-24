@@ -5,9 +5,12 @@ out vec4 OutColour;
 
 //texture data
 uniform sampler2D TextureColour;
+uniform sampler2D TextureColour2;
 
 void main() {
 
 	//texture() accepts colours and coordinates to create an open gl texture
-	OutColour = texture(TextureColour, TexCoords);
+	//OutColour = texture(TextureColour, TexCoords);
+	OutColour = mix(texture(TextureColour, TexCoords), texture(TextureColour2, TexCoords), 0.2);
+
 }

@@ -2,6 +2,7 @@
 #include "GL/glew.h"
 #include "stb_image/stb_image.h"
 #include <string>
+#include "VZEngine/Graphics/ShaderProgram.h"
 
 Texture::Texture()
 {
@@ -22,6 +23,8 @@ Texture::Texture()
 	//set how the image will blur between pixels as it scale up and down resolution
 	glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	//glEnable(GL_BLEND);
 
 	cout << "Initialised Texture With ID: " << TextureID << endl;
 }
@@ -78,6 +81,8 @@ bool Texture::CreateTextureFromFilePath(const char* FilePath)
 	//destorys the raw image data from memory
 	stbi_image_free(RawImage);
 
+	
+
 	return true;
 }
 
@@ -95,7 +100,7 @@ void Texture::ActivateTexture(vzuint Index)
 	if (TextureID != 0)
 	{
 		glActiveTexture(GL_TEXTURE0 + Index);
-	}
+	}	
 	
 }
 

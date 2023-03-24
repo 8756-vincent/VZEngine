@@ -70,7 +70,7 @@ void Game::Run()
 		Poly = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, { TCube, TTransparent });
 		Poly2 = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, { TSus ,TGrid});
 
-
+		cout << "Press H for help" << endl;
 		Poly->Transform.Location = Vector3(0.0f,1.0f,0.0f);
 		Poly2->Transform.Location = Vector3(-0.0f, -1.0f, 0.0f);
 	}
@@ -147,7 +147,10 @@ void Game::Update()
 	//down
 	if (GameInput->IsKeyDown(SDL_SCANCODE_E)) {
 		CameraInput += -CamDirections.Up;
-	}	
+	}
+	if (GameInput->IsKeyDown(SDL_SCANCODE_H)) {
+		
+	}
 
 	//FOV
 	float NewFOV = Graphics->EngineDefaultCam->GetCameraData().FOV;

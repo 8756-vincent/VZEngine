@@ -37,21 +37,19 @@ void Input::ProcessInput()
 		case SDL_MOUSEWHEEL:
 			OnMouseScroll(PollEvent.wheel);
 			break;
-		case SDL_KEYDOWN:
-			
+		case SDL_KEYDOWN:			
 			switch (PollEvent.key.keysym.sym)
 			{
 			case SDLK_ESCAPE: // on close button pressed
 				Game::GetGameInstance().CloseApp();
 				break;
-			case SDLK_r: // on close button pressed
-				
+			case SDLK_h: // on close button pressed
+				HelpMenu();
 				break;
-
 			default:
 				break;
 			}
-			KeyboardState = SDL_GetKeyboardState(NULL);
+			
 			break;
 		case SDL_KEYUP:
 			KeyboardState = SDL_GetKeyboardState(NULL);
@@ -75,6 +73,19 @@ bool Input::IsKeyDown(SDL_Scancode key)
 		return false;
 	}
 	return static_cast<bool>(KeyboardState[key]);
+}
+
+void Input::HelpMenu()
+{
+	cout << "        Help Menu" << endl;
+	cout << "1. WASD to Move" << endl;
+	cout << "2. QE to go up and down" << endl;
+	cout << "3. Hold RMB to look around" << endl;
+	cout << "4. Mouse Scroll Up increase FOV" << endl;
+	cout << "5. Mouse Scroll Down decrease FOV" << endl;
+	cout << "6. R to reset FOV" << endl;
+	cout << "7. LShift to go faster" << endl;
+	cout << "8. LCtrl to go slow walk/speed" << endl;
 }
 
 bool Input::IsMouseButtonDown(MouseButtons Button)

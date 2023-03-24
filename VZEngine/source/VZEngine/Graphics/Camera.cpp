@@ -14,6 +14,12 @@ void Camera::Translate(Vector3 Location)
 	UpdateDirectionVectors();
 }
 
+void Camera::FOV(float FOVIncrease)
+{
+	CameraData.FOV = FOVIncrease;
+}
+
+
 glm::mat4 Camera::GetViewMatrix() const
 {
 	//eye is the view position of the camera

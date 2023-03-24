@@ -20,6 +20,7 @@ public:
 
 	//move camera in 3D space
 	void Translate(Vector3 Location);
+	void FOV(float FOVIncrease);
 
 	//return the transform data
 	CTransform GetTransform() const {return Transform; }

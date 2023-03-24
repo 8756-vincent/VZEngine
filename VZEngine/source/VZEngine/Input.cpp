@@ -38,6 +38,19 @@ void Input::ProcessInput()
 			OnMouseScroll(PollEvent.wheel);
 			break;
 		case SDL_KEYDOWN:
+			
+			switch (PollEvent.key.keysym.sym)
+			{
+			case SDLK_ESCAPE: // on close button pressed
+				Game::GetGameInstance().CloseApp();
+				break;
+			case SDLK_r: // on close button pressed
+				
+				break;
+
+			default:
+				break;
+			}
 			KeyboardState = SDL_GetKeyboardState(NULL);
 			break;
 		case SDL_KEYUP:
@@ -68,6 +81,7 @@ bool Input::IsMouseButtonDown(MouseButtons Button)
 {
 	return MouseButtonStates[Button];
 }
+
 
 void Input::SetMouseButtonStates(Uint8 ButtonIndex, bool CurrentState)
 {

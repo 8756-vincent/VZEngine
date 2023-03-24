@@ -65,7 +65,7 @@ void Game::Run()
 
 		//create VAO
 		Poly = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, { TCube });
-		Poly2 = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, { TGrid });
+		Poly2 = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, { TGrid, TCube });
 
 
 		Poly->Transform.Location = Vector3(1.0f,0.0f,0.0f);
@@ -116,8 +116,9 @@ void Game::Update()
 	Poly2->Transform.Rotation.y -= 50.0f * GetDeltaTime();
 
 	Vector3 CameraInput = Vector3(0.0f);
-	CDirection CamDirections = Graphics->EngineDefaultCam->GetDirection();
 
+	CDirection CamDirections = Graphics->EngineDefaultCam->GetDirection();
+	float Speed = Graphics->EngineDefaultCam->GetCameraData().Speed;
 
 	if(GameInput->IsKeyDown(SDL_SCANCODE_W)){
 		CameraInput += CamDirections.Forward;
@@ -143,56 +144,85 @@ void Game::Update()
 	//down
 	if (GameInput->IsKeyDown(SDL_SCANCODE_E)) {
 		CameraInput += -CamDirections.Up;
+	}	
+
+	//FOV
+	float NewFOV = Graphics->EngineDefaultCam->GetCameraData().FOV;
+	if (GameInput->ScrollDelta > 0 && NewFOV !=100) {
+		if (NewFOV < 100)
+		{
+			NewFOV++;
+		}
+		cout << "Current FOV: " << NewFOV<< endl;
+	}
+	if (GameInput->ScrollDelta < 0 && NewFOV != 0) {
+		if (NewFOV > 0)
+		{
+			NewFOV--;
+		}	
+		cout << "Current FOV: " << NewFOV << endl;
+	}
+	if (GameInput->IsKeyDown(SDL_SCANCODE_R))
+	{
+		NewFOV = 70.0f;
+		cout << "Restting FOV: " << NewFOV << endl;
 	}
 
-	//set speed to frame
-	CameraInput *= 5.0f *GetDeltaTime();
 
+	//Speed Shift	
+	if (GameInput->IsKeyDown(SDL_SCANCODE_LSHIFT)) {
+		Speed = 4.0f;
+		cout << "Sprting" << endl;
+	}
+	if (GameInput->IsKeyDown(SDL_SCANCODE_LCTRL)) {
+		Speed = 0.5f;
+		cout << "Slow Walk" << endl;
+	}
+
+	//set speed/movement to frame
+	CameraInput *= Speed *GetDeltaTime();
+
+	//Location of the camera/player
 	Vector3 NewLocation = Graphics->EngineDefaultCam->GetTransform().Location += CameraInput;
-
+	//Holding right mouse button
 	if (GameInput->IsMouseButtonDown(MouseButtons::RIGHT)) {
 		Graphics->EngineDefaultCam->RotatePitch(-GameInput->MouseYDelta * GetDeltaTime() * 25.0f);
 		Graphics->EngineDefaultCam->RotateYaw(GameInput->MouseXDelta * GetDeltaTime() * 25.0f);
 	}
+	//set the cam on the new location
 	Graphics->EngineDefaultCam->Translate(NewLocation);
+	//seeting new FOV
+	Graphics->EngineDefaultCam->FOV(NewFOV);
+	
 
+	////Gravity
+	//Vector3 gravity = Vector3(0.0f,1.0f,0.0f);
+	//bool Gravity = true;
 
-	//float FOVInput = 0.0f;
-	////FOV 
-	//if (GameInput->IsKeyDown(SDL_SCANCODE_R)) {
-	//	//Graphics->EngineDefaultCam->GetCameraData().FOV = 70.0f;
-	//	cout << "Resetting FOV to " << Graphics->EngineDefaultCam->GetCameraData().FOV << endl;
+	//if (GameInput->IsKeyDown(SDL_SCANCODE_G))
+	//{
+	//	if (Gravity)
+	//	{			
+	//		cout << "Gravity: " << endl;
+	//		Gravity = false;
+	//	}
+	//	else {			
+	//		cout << "No Gravity: " << endl;
+	//		Gravity = true;
+	//	}		
 	//}
+	///*if (Gravity)
+	//{
+	//	CameraInput += -CamDirections.Up;
+	//}*/
 
-	//if (GameInput->IsKeyDown(SDL_SCANCODE_T)) {
-	//	FOVInput = 1.0f;
-	//	cout << "Increasing FOV by 1 now it's " << Graphics->EngineDefaultCam->GetCameraData().FOV << endl;
-	//}
-
-	//if (GameInput->IsKeyDown(SDL_SCANCODE_Y)) {
-	//	FOVInput = -1.0f;
-	//	cout << "Decreasing FOV by 1 now it's " << Graphics->EngineDefaultCam->GetCameraData().FOV << endl;
-	//}
-
-	//float Sprint = 1.0f;
-	////Shift
-	//if (GameInput->IsKeyDown(SDL_SCANCODE_LSHIFT)) {
-	//	Sprint = 4.0f;
-	//	cout << "Sprting" << endl;
-	//}
-	//if (GameInput->IsKeyDown(SDL_SCANCODE_LCTRL)) {
-	//	Sprint = 0.5f;
-	//	cout << "Crouching" << endl;
-	//}
-	//if (GameInput->IsKeyDown(SDL_SCANCODE_SPACE)) {		
+	//if (GameInput->IsKeyDown(SDL_SCANCODE_SPACE)) {
 	//	if (Graphics->EngineDefaultCam.y >= 0)
 	//	{
 	//		CameraInput.y = -100.0f;
 	//		cout << "Jumping" << endl;
-	//	}		
+	//	}
 	//}
-
-
 }
 
 void Game::Draw()

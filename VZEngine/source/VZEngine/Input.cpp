@@ -46,6 +46,18 @@ void Input::ProcessInput()
 			case SDLK_h: // on close button pressed
 				HelpMenu();
 				break;
+			case SDLK_g: // on close button pressed
+				if (!GetGravity())
+				{
+					TurnGravityOn(true);
+					cout << "Gravity is on" << endl;
+				}
+				else
+				{
+					TurnGravityOn(false);
+					cout << "Gravity is off" << endl;
+				}
+				break;
 			default:
 				break;
 			}
@@ -86,6 +98,7 @@ void Input::HelpMenu()
 	cout << "6. R to reset FOV" << endl;
 	cout << "7. LShift to go faster" << endl;
 	cout << "8. LCtrl to go slow walk/speed" << endl << endl;
+	cout << "9. G to activate gravity" << endl << endl;
 }
 
 bool Input::IsMouseButtonDown(MouseButtons Button)

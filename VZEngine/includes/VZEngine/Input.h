@@ -19,6 +19,8 @@ public:
 	//detect if a specific key is down base on an sdl scancode
 	//Hint* SDL_SCANCODE_KEY(SDL_SCANCODE_W)
 	bool IsKeyDown(SDL_Scancode key);
+	bool TurnGravityOn(bool gravity) { return this->gravity = gravity; }
+	bool GetGravity() { return gravity; }
 	void HelpMenu();
 
 	bool IsMouseButtonDown(MouseButtons Button);
@@ -48,4 +50,6 @@ private:
 
 	//mouse button current states
 	bool MouseButtonStates[10] = { false };
+	
+	bool gravity;
 };

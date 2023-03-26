@@ -182,6 +182,16 @@ void Game::Update()
 		cout << "Slow Walking" << endl;
 	}
 
+
+	//Gravity-applies to camera only
+	Vector3 gravity = Vector3(0.0f, 0.05f, 0.0f);
+
+	if (GameInput->GetGravity())
+	{
+		//Speed = 0.5f;
+		CameraInput += -(CamDirections.Up + gravity);
+	}
+
 	//set speed/movement to frame
 	CameraInput *= Speed *GetDeltaTime();
 
@@ -195,41 +205,7 @@ void Game::Update()
 	//set the cam on the new location
 	Graphics->EngineDefaultCam->Translate(NewLocation);
 	//setting new FOV
-	Graphics->EngineDefaultCam->FOV(NewFOV);	
-	
-
-	//Gravity-work in progress
-	//Vector3 gravity = Vector3(0.0f,1.0f,0.0f);
-	//bool Gravity = true;
-	/*if (Graphics->EngineDefaultCam->GetDirection().Up == gravity)
-	{
-		cout << "Im don with this gravity" << endl;
-	}*/
-
-	//if (GameInput->IsKeyDown(SDL_SCANCODE_G))
-	//{
-	//	if (Gravity)
-	//	{			
-	//		cout << "Gravity: " << endl;
-	//		Gravity = false;
-	//	}
-	//	else {			
-	//		cout << "No Gravity: " << endl;
-	//		Gravity = true;
-	//	}		
-	//}
-	///*if (Gravity)
-	//{
-	//	CameraInput += -CamDirections.Up;
-	//}*/
-
-	//if (GameInput->IsKeyDown(SDL_SCANCODE_SPACE)) {
-	//	if (Graphics->EngineDefaultCam.y >= 0)
-	//	{
-	//		CameraInput.y = -100.0f;
-	//		cout << "Jumping" << endl;
-	//	}
-	//}
+	Graphics->EngineDefaultCam->FOV(NewFOV);
 }
 
 void Game::Draw()

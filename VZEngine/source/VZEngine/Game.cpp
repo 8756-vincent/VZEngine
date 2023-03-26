@@ -165,7 +165,7 @@ void Game::Update()
 		}	
 		cout << "Current FOV: " << NewFOV << endl;
 	}
-	if (GameInput->IsKeyDown(SDL_SCANCODE_R))
+	if (GameInput->IsKeyDown(SDL_SCANCODE_R) && NewFOV != 70)
 	{
 		NewFOV = 70.0f;
 		cout << "Restting FOV: " << NewFOV << endl;
@@ -179,7 +179,7 @@ void Game::Update()
 	}
 	if (GameInput->IsKeyDown(SDL_SCANCODE_LCTRL)) {
 		Speed = 0.5f;
-		cout << "Slow Walk" << endl;
+		cout << "Slow Walking" << endl;
 	}
 
 	//set speed/movement to frame
@@ -194,14 +194,12 @@ void Game::Update()
 	}
 	//set the cam on the new location
 	Graphics->EngineDefaultCam->Translate(NewLocation);
-	//seeting new FOV
+	//setting new FOV
 	Graphics->EngineDefaultCam->FOV(NewFOV);	
 	
-	//Gravity
-	
 
-
-	Vector3 gravity = Vector3(0.0f,1.0f,0.0f);
+	//Gravity-work in progress
+	//Vector3 gravity = Vector3(0.0f,1.0f,0.0f);
 	//bool Gravity = true;
 	/*if (Graphics->EngineDefaultCam->GetDirection().Up == gravity)
 	{

@@ -25,6 +25,9 @@ public:
 	//set the IsGameOver to true
 	void CloseApp() { bIsGameOver = true; }
 
+	//return the graphics engine default texture
+	TexturePtr GetDefaultEngineTexture();
+
 private:
 	Game();
 	~Game();
@@ -61,4 +64,6 @@ private:
 	//temp mesh var
 	MeshPtr Poly2;
 	MeshPtr Poly;
+
+	
 };

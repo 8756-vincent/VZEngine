@@ -4,7 +4,7 @@
 struct STCameraData
 {
 	//speed of camera
-	float Speed = 1.0f;
+	float Speed = 5.0f;
 	//view space we can see in degress
 	float FOV=60.0f;
 
@@ -12,6 +12,8 @@ struct STCameraData
 	float NearClip = 0.01f;
 	//opposit of near clip
 	float FarClip = 1000.0f;
+
+	float LookSensitivity = 20.0f;
 };
 
 class Camera {
@@ -21,6 +23,8 @@ public:
 	//move camera in 3D space
 	void Translate(Vector3 Location);
 	void FOV(float FOVIncrease);
+
+	void AddMovementInput(Vector3 Direction);
 
 	//return the transform data
 	CTransform GetTransform() const {return Transform; }

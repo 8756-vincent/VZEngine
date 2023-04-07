@@ -1,5 +1,6 @@
 #pragma once
 #include "VZEngine/CoreMinimal.h"
+#include "Vertex.h"
 const PositionMatrix TrianglePositions{
 	//x		//y		//z		//colour			//tex coords
 	-0.5f,	-0.5f,	0.0f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f,	//bottom left
@@ -167,6 +168,8 @@ const IndicesMatrix Circle20Indices{
 class VertexArrayObject {
 public:
 	VertexArrayObject(GeometricShapes ChosenShape);
+	//create complex mesh VAO from the importer
+	VertexArrayObject(vector<Vertex> Verticies, vector<vzuint> Indicies);
 	~VertexArrayObject();
 
 	void Draw();
@@ -179,5 +182,9 @@ private:
 	// VAB = ID for the Vertices
 	//EAB = ID for the Indices
 	vzuint ID, VAB, EAB;
+
+	//for importing complex meshes
+	vector<Vertex> Verticies;
+	vector<vzuint>Indicies;
 
 };

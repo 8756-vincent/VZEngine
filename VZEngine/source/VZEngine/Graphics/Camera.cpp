@@ -1,5 +1,6 @@
 #include "VZEngine/Graphics/Camera.h"
 #include "glm/gtc/matrix_transform.hpp"
+#include "VZEngine/Game.h"
 
 Camera::Camera()
 {
@@ -19,6 +20,29 @@ void Camera::FOV(float FOVIncrease)
 	CameraData.FOV = FOVIncrease;
 }
 
+void Camera::AddMovementInput(Vector3 Direction)
+{
+	if (glm::length(Direction) == 0)
+		return;
+	//divide the vector by its length
+	//dont normalise if the direction is 0
+	Direction = glm::normalize(Direction);
+	
+	//set the celocity of the camera using the speed and input direction
+	Vector3 Vel = Direction * (CameraData.Speed * Game::GetGameInstance().GetFDeltaTime());
+
+	//create a new location from the camera based on it's position and the current velocity
+	Vector3 NewPosition = Transform.Location + Vel;
+
+	//make sure the camera has actually been told to move
+	if (Transform.Location != NewPosition)
+	{
+		//move the camera to the new position 
+		Translate(NewPosition);
+	}
+
+}
+
 
 glm::mat4 Camera::GetViewMatrix() const
 {
@@ -32,7 +56,7 @@ glm::mat4 Camera::GetViewMatrix() const
 void Camera::RotatePitch(float Amount)
 {
 	
-	Transform.Rotation.x += Amount;
+	Transform.Rotation.x += Amount * CameraData.LookSensitivity;
 
 	if (Transform.Rotation.x > 89.0f)
 		Transform.Rotation.x = 89.0f;
@@ -46,7 +70,7 @@ void Camera::RotatePitch(float Amount)
 void Camera::RotateYaw(float Amount)
 {
 	//this can currently increase to a max number
-	Transform.Rotation.y += Amount;
+	Transform.Rotation.y += Amount * CameraData.LookSensitivity;
 
 	//when yaw gets to 360 change it to 0
 	Transform.Rotation.y = glm::mod(Transform.Rotation.y, 360.0f);

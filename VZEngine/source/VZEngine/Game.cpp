@@ -3,6 +3,7 @@
 #include "VZEngine/Graphics/Mesh.h"
 #include "VZEngine/Input.h"
 #include "VZEngine/Graphics/Camera.h"
+#include "VZEngine/Graphics/Material.h"
 
 
 Game& Game::GetGameInstance()
@@ -28,6 +29,11 @@ void Game::Start(const char* WTitle, bool bFullscreen, int WWidth, int WHeight)
 	}
 
 	Run();
+}
+
+TexturePtr Game::GetDefaultEngineTexture()
+{
+	return Graphics->DefaultEngineTexture;
 }
 
 Game::Game()
@@ -65,10 +71,18 @@ void Game::Run()
 		TexturePtr TGrid = Graphics->CreateTexture("Game/Texture/concrete.jpg");
 		TexturePtr TTransparent = Graphics->CreateTexture("Game/Texture/transparent.png");
 
+		//create the material
+		MatherialPtr MConcrete = make_shared<Material>();
+		MatherialPtr MGrid = make_shared<Material>();
+
+		//assign the base colour of the materials using the textures
+		MConcrete->BaseColour = TCube;
+		MGrid->BaseColour = TGrid;
+
 
 		//create VAO
-		Poly = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, { TCube, TTransparent });
-		Poly2 = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, { TSus ,TGrid});
+		Poly = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, MConcrete);
+		Poly2 = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, MGrid);
 
 		cout << "Press H for help" << endl;
 		Poly->Transform.Location = Vector3(0.0f,1.0f,0.0f);
@@ -192,18 +206,19 @@ void Game::Update()
 		CameraInput += -(CamDirections.Up + gravity);
 	}
 
-	//set speed/movement to frame
-	CameraInput *= Speed *GetDeltaTime();
+	Graphics->EngineDefaultCam->AddMovementInput(CameraInput);
 
-	//Location of the camera/player
-	Vector3 NewLocation = Graphics->EngineDefaultCam->GetTransform().Location += CameraInput;
 	//Holding right mouse button
 	if (GameInput->IsMouseButtonDown(MouseButtons::RIGHT)) {
-		Graphics->EngineDefaultCam->RotatePitch(-GameInput->MouseYDelta * GetDeltaTime() * 25.0f);
-		Graphics->EngineDefaultCam->RotateYaw(GameInput->MouseXDelta * GetDeltaTime() * 25.0f);
+		Graphics->EngineDefaultCam->RotatePitch(-GameInput->MouseYDelta * GetFDeltaTime());
+		Graphics->EngineDefaultCam->RotateYaw(GameInput->MouseXDelta * GetFDeltaTime());
+		GameInput->ShowCursor(false);
 	}
-	//set the cam on the new location
-	Graphics->EngineDefaultCam->Translate(NewLocation);
+	else
+	{
+		GameInput->ShowCursor(true);
+	}
+
 	//setting new FOV
 	Graphics->EngineDefaultCam->FOV(NewFOV);
 }

@@ -28,6 +28,9 @@ public:
 	//return the graphics engine default texture
 	TexturePtr GetDefaultEngineTexture();
 
+	//retrun the graphics engine dafault material
+	MaterialPtr GetDefaultEngineMaterial();
+
 private:
 	Game();
 	~Game();
@@ -62,8 +65,12 @@ private:
 	Input* GameInput;
 
 	//temp mesh var
-	MeshPtr Poly2;
-	MeshPtr Poly;
+	ModelPtr Model2;
+	ModelPtr Model;
+
+
+	ModelPtr Wall;
+	ModelPtr Wall2;
 
 	
 };

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Claymore Mine
+* source:	https://sketchfab.com/3d-models/claymore-mine-0ab9698d824b4c56a2728e5edea90aa4
+* author:	Charlie Tinley (https://sketchfab.com/Tnkii)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Claymore Mine" (https://sketchfab.com/3d-models/claymore-mine-0ab9698d824b4c56a2728e5edea90aa4) by Charlie Tinley (https://sketchfab.com/Tnkii) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

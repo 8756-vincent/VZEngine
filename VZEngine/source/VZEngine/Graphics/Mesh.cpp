@@ -15,13 +15,12 @@ Mesh::Mesh()
 Mesh::~Mesh()
 {
 	MeshShader = nullptr;
-	MeshMaterial = nullptr;
 	MeshVAO = nullptr;
 
 	cout << "Mesh | Mesh Destoryed." << endl;
 }
 
-bool Mesh::CreateSimpleShape(GeometricShapes Shape, ShaderPtr MeshShader, MatherialPtr MeshMaterial)
+bool Mesh::CreateSimpleShape(GeometricShapes Shape, ShaderPtr MeshShader, vzuint MaterialSlot)
 {
 	cout << "Mesh | Mesh Creating Mesh." << endl;
 
@@ -36,14 +35,36 @@ bool Mesh::CreateSimpleShape(GeometricShapes Shape, ShaderPtr MeshShader, Mather
 
 	//
 	this->MeshShader = MeshShader;
-	this->MeshMaterial = MeshMaterial;
+	this->MaterialSlot = MaterialSlot;
 
 	cout << "Mesh | Mesh Created Sucessfully." << endl;
 
 	return true;
 }
 
-void Mesh::Draw()
+bool Mesh::CreateMesh(vector<Vertex> vertices, vector<vzuint> Indices, ShaderPtr MeshShader, vzuint MaterialSlot)
+{
+	cout << "Mesh | Creating Mesh." << endl;
+
+	//Create the VAO
+	MeshVAO = make_shared<VAO>(vertices, Indices);
+
+	//validate the mesh was creatd
+	if (MeshVAO == nullptr) {
+		cout << "MEsh | Mesh failed to be created" << endl;
+		return false;
+	}
+
+	//
+	this->MeshShader = MeshShader;
+	this->MaterialSlot = MaterialSlot;
+
+	cout << "Mesh | Mesh Created Sucessfully." << endl;
+
+	return true;
+}
+
+void Mesh::Draw(MaterialPtr MeshMaterial)
 {
 	//activate the shader this mesh uses
 	MeshShader->RunShader();

@@ -1,6 +1,6 @@
 #include "VZEngine/Game.h"
 #include "VZEngine/Graphics/GraphicsEngine.h"
-#include "VZEngine/Graphics/Mesh.h"
+#include "VZEngine/Graphics/Model.h"
 #include "VZEngine/Input.h"
 #include "VZEngine/Graphics/Camera.h"
 #include "VZEngine/Graphics/Material.h"
@@ -36,6 +36,11 @@ TexturePtr Game::GetDefaultEngineTexture()
 	return Graphics->DefaultEngineTexture;
 }
 
+MaterialPtr Game::GetDefaultEngineMaterial()
+{
+	return Graphics->DefaultEngineMaterial;
+}
+
 Game::Game()
 {
 	cout << "Game Initialised!" << endl;
@@ -57,10 +62,10 @@ void Game::Run()
 {
 	if (!bIsGameOver)
 	{
-
-
+		//create an input class to detect input
 		GameInput = new Input();
 
+		//create a shader
 		ShaderPtr TextureShader = Graphics->CreateShader({
 			L"Game/Shaders/TextureShader/TextureShader.svert",
 			L"Game/Shaders/TextureShader/TextureShader.sfrag"
@@ -72,21 +77,43 @@ void Game::Run()
 		TexturePtr TTransparent = Graphics->CreateTexture("Game/Texture/transparent.png");
 
 		//create the material
-		MatherialPtr MConcrete = make_shared<Material>();
-		MatherialPtr MGrid = make_shared<Material>();
+		MaterialPtr MCube = make_shared<Material>();
+		MaterialPtr MGrid = make_shared<Material>();
 
 		//assign the base colour of the materials using the textures
-		MConcrete->BaseColour = TCube;
+		MCube->BaseColour = TCube;
 		MGrid->BaseColour = TGrid;
 
 
 		//create VAO
-		Poly = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, MConcrete);
-		Poly2 = Graphics->CreateSimpleMeshShape(GeometricShapes::Cube, TextureShader, MGrid);
+		Model = Graphics->CreateSimpleModelShape(GeometricShapes::Cube, TextureShader);
+		Model2 = Graphics->CreateSimpleModelShape(GeometricShapes::Cube, TextureShader);
+
+		//set materials of the models
+		Model->SetMaterialBySlot(0, MCube);
 
 		cout << "Press H for help" << endl;
-		Poly->Transform.Location = Vector3(0.0f,1.0f,0.0f);
-		Poly2->Transform.Location = Vector3(-0.0f, -1.0f, 0.0f);
+		Model->Transform.Location = Vector3(0.0f,1.0f,0.0f);
+		Model2->Transform.Location = Vector3(-0.0f, -1.0f, 0.0f);
+
+		//import custom meshes
+		Wall = Graphics->ImportModel("Game/Model/damaged-wall/source/SM_Wall_Damaged.obj", TextureShader);
+
+		//transform
+		Wall->Transform.Scale = Vector3(0.05f);
+		Wall->Transform.Rotation.y = 90.0f;
+		Wall->Transform.Location = Vector3(2.0f, -2.0f,0);
+
+		//create the texture
+		TexturePtr TWall = Graphics->CreateTexture("Game/Model/damaged-wall/textures/T_Wall_Damaged_BC.png");
+
+		//create a material
+		MaterialPtr MWall = make_shared<Material>();
+		MWall->BaseColour = TWall;
+
+		//apply the material
+		Wall->SetMaterialBySlot(1, MWall);
+
 	}
 
 	while (!bIsGameOver)
@@ -124,13 +151,13 @@ void Game::Update()
 	//update the last frame time for the next update
 	LastFrameTime = CurrentFrameTime;
 
-	Poly->Transform.Rotation.z += 50.0f * GetDeltaTime();
-	Poly->Transform.Rotation.x += 50.0f * GetDeltaTime();
-	Poly->Transform.Rotation.y += 50.0f * GetDeltaTime();
+	Model->Transform.Rotation.z += 50.0f * GetDeltaTime();
+	Model->Transform.Rotation.x += 50.0f * GetDeltaTime();
+	Model->Transform.Rotation.y += 50.0f * GetDeltaTime();
 	
-	Poly2->Transform.Rotation.z -= 50.0f * GetDeltaTime();
-	Poly2->Transform.Rotation.x -= 50.0f * GetDeltaTime();
-	Poly2->Transform.Rotation.y -= 50.0f * GetDeltaTime();
+	Model2->Transform.Rotation.z -= 50.0f * GetDeltaTime();
+	Model2->Transform.Rotation.x -= 50.0f * GetDeltaTime();
+	Model2->Transform.Rotation.y -= 50.0f * GetDeltaTime();
 
 	Vector3 CameraInput = Vector3(0.0f);
 

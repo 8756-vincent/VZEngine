@@ -81,35 +81,40 @@ void Game::Run()
 		MaterialPtr MGrid = make_shared<Material>();
 
 		//assign the base colour of the materials using the textures
-		MCube->BaseColour = TCube;
-		MGrid->BaseColour = TGrid;
+		MCube->BaseColour.TextureV3 = TCube;
+		MGrid->BaseColour.TextureV3 = TGrid;
 
 
 		//create VAO
-		Model = Graphics->CreateSimpleModelShape(GeometricShapes::Cube, TextureShader);
-		Model2 = Graphics->CreateSimpleModelShape(GeometricShapes::Cube, TextureShader);
+		Model = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
+		Model2 = Graphics->ImportModel("Game/Model/PrimitiveModels/Sphere.fbx", TextureShader);
+		//import custom meshes
+		Wall = Graphics->ImportModel("Game/Model/damaged-wall/source/SM_Wall_Damaged.obj", TextureShader);
 
 		//set materials of the models
 		Model->SetMaterialBySlot(0, MCube);
+		Model2->SetMaterialBySlot(0, MGrid);
 
-		cout << "Press H for help" << endl;
+		Model2->GetMaterialBySlot(0)->SpceularColour.MultiplierV3 = Vector3(1.0f, 0.0f, 0.0f);
+
+		cout << "Press H for help menu" << endl;
 		Model->Transform.Location = Vector3(0.0f,1.0f,0.0f);
 		Model2->Transform.Location = Vector3(-0.0f, -1.0f, 0.0f);
 
-		//import custom meshes
-		Wall = Graphics->ImportModel("Game/Model/damaged-wall/source/SM_Wall_Damaged.obj", TextureShader);
 
 		//transform
 		Wall->Transform.Scale = Vector3(0.05f);
 		Wall->Transform.Rotation.y = 90.0f;
-		Wall->Transform.Location = Vector3(2.0f, -2.0f,0);
+		Wall->Transform.Location = Vector3(2.0f, -2.0f, 0.0f);
 
-		//create the texture
+		//create the texture 
+		//(custom texture from the model)
 		TexturePtr TWall = Graphics->CreateTexture("Game/Model/damaged-wall/textures/T_Wall_Damaged_BC.png");
 
-		//create a material
+		//create a material 
+		//(setting the texture to material for base colour)
 		MaterialPtr MWall = make_shared<Material>();
-		MWall->BaseColour = TWall;
+		MWall->BaseColour.TextureV3 = TWall;
 
 		//apply the material
 		Wall->SetMaterialBySlot(1, MWall);

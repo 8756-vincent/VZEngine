@@ -21,6 +21,12 @@ public:
 	//allow changing integer values in shader code
 	void SetInt(const char* ShaderVarName, int Value);
 
+	//change float
+	void SetFloat(const char* ShaderVarName, float Value);
+	//change vector 3
+	void SetVector3(const char* ShaderVarName, glm::vec3 Value);
+
+
 private:
 	//attach the shader to the VAO in openGL
 	bool AttachShader(const wchar_t* ShaderFile, ShaderTypes Type);

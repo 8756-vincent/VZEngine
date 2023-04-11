@@ -1,5 +1,12 @@
 #pragma once
 #include "VZEngine/CoreMinimal.h"
+#include "VZEngine/Math/Transformation.h"
+
+struct Vec3Texture {
+	TexturePtr TextureV3;
+	Vector3 MultiplierV3 = Vector3(1.0f);
+
+};
 
 class Material {
 public:
@@ -8,6 +15,9 @@ public:
 
 	void Draw(ShaderPtr Shader);
 
-	TexturePtr BaseColour;
+	Vec3Texture BaseColour;
+	Vec3Texture SpceularColour;
+	Vec3Texture EmissiveColour;
 	
+	float Shininess;
 };

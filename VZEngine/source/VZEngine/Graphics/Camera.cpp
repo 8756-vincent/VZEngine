@@ -20,6 +20,11 @@ void Camera::FOV(float FOVIncrease)
 	CameraData.FOV = FOVIncrease;
 }
 
+void Camera::Speed(float SpeedIncrease)
+{
+	CameraData.Speed = SpeedIncrease;
+}
+
 void Camera::AddMovementInput(Vector3 Direction)
 {
 	if (glm::length(Direction) == 0)

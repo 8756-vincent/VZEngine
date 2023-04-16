@@ -72,5 +72,8 @@ private:
 	ModelPtr Wall;
 	ModelPtr Wall2;
 
-	
+	ModelPtr LightCube;
+
+	ModelPtr HealthPickUp;
+	ModelPtr Bomb;
 };

@@ -9,11 +9,11 @@ Material::Material()
 	//make sure the base colour can be set to engine dafault
 	if (Game::GetGameInstance().GetDefaultEngineTexture() != nullptr) {
 		BaseColour.TextureV3 = Game::GetGameInstance().GetDefaultEngineTexture();
-		SpceularColour.TextureV3 = Game::GetGameInstance().GetDefaultEngineTexture();
+		SpecularColour.TextureV3 = Game::GetGameInstance().GetDefaultEngineTexture();
 		EmissiveColour.TextureV3 = Game::GetGameInstance().GetDefaultEngineTexture();
 	}
 	else {
-		BaseColour.TextureV3 = SpceularColour.TextureV3 = EmissiveColour.TextureV3 = nullptr;
+		BaseColour.TextureV3 = SpecularColour.TextureV3 = EmissiveColour.TextureV3 = nullptr;
 	}
 
 	EmissiveColour.MultiplierV3 = Vector3(0.1f);
@@ -23,7 +23,7 @@ Material::Material()
 
 Material::~Material()
 {
-	BaseColour.TextureV3 = SpceularColour.TextureV3 = EmissiveColour.TextureV3 = nullptr;
+	BaseColour.TextureV3 = SpecularColour.TextureV3 = EmissiveColour.TextureV3 = nullptr;
 }
 
 void Material::Draw(ShaderPtr Shader)
@@ -42,17 +42,17 @@ void Material::Draw(ShaderPtr Shader)
 	Shader->SetVector3("ImportMat.MColour", BaseColour.MultiplierV3);
 
 	//base colour to shader
-	if (SpceularColour.TextureV3 != nullptr)
+	if (SpecularColour.TextureV3 != nullptr)
 	{
 		//activate the texture for slot 0
-		SpceularColour.TextureV3->ActivateTexture(1);
+		SpecularColour.TextureV3->ActivateTexture(1);
 		//telling the shader to get the texture colour from slot 0
-		Shader->SetInt("ImportMat.TSpceular", 1);
+		Shader->SetInt("ImportMat.TSpecular", 1);
 		//bind the texture to opengl
-		SpceularColour.TextureV3->BindTexture();
+		SpecularColour.TextureV3->BindTexture();
 	}
 
-	Shader->SetVector3("ImportMat.MSpceular", SpceularColour.MultiplierV3);
+	Shader->SetVector3("ImportMat.MSpecular", SpecularColour.MultiplierV3);
 
 	//base colour to shader
 	if (EmissiveColour.TextureV3 != nullptr)

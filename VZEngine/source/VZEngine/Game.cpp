@@ -72,9 +72,7 @@ void Game::Run()
 			});
 		
 		TexturePtr TCube = Graphics->CreateTexture("Game/Texture/multiCube.jpg");
-		TexturePtr TSus = Graphics->CreateTexture("Game/Texture/sus.png");
 		TexturePtr TGrid = Graphics->CreateTexture("Game/Texture/concrete.jpg");
-		TexturePtr TTransparent = Graphics->CreateTexture("Game/Texture/transparent.png");
 
 		//create the material
 		MaterialPtr MCube = make_shared<Material>();
@@ -88,37 +86,73 @@ void Game::Run()
 		//create VAO
 		Model = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
 		Model2 = Graphics->ImportModel("Game/Model/PrimitiveModels/Sphere.fbx", TextureShader);
+
+
 		//import custom meshes
 		Wall = Graphics->ImportModel("Game/Model/damaged-wall/source/SM_Wall_Damaged.obj", TextureShader);
+		HealthPickUp = Graphics->ImportModel("Game/Model/HealthPickUp/source/FirstAidBox.fbx", TextureShader);
+		Bomb = Graphics->ImportModel("Game/Model/free-bomb/source/LP_bomb_uv_triangl.fbx", TextureShader);
+		LightCube = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
+
 
 		//set materials of the models
 		Model->SetMaterialBySlot(0, MCube);
+		Model->Transform.Location = Vector3(0.0f, 1.0f, 0.0f);
+
 		Model2->SetMaterialBySlot(0, MGrid);
-
-		Model2->GetMaterialBySlot(0)->SpceularColour.MultiplierV3 = Vector3(1.0f, 0.0f, 0.0f);
-
-		cout << "Press H for help menu" << endl;
-		Model->Transform.Location = Vector3(0.0f,1.0f,0.0f);
+		Model2->GetMaterialBySlot(0)->EmissiveColour.MultiplierV3 = Vector3(1.0f, 0.0f, 0.0f);
 		Model2->Transform.Location = Vector3(-0.0f, -1.0f, 0.0f);
 
+		LightCube->GetMaterialBySlot(0)->EmissiveColour.MultiplierV3 = Vector3(2.0f);
 
-		//transform
 		Wall->Transform.Scale = Vector3(0.05f);
 		Wall->Transform.Rotation.y = 90.0f;
-		Wall->Transform.Location = Vector3(2.0f, -2.0f, 0.0f);
+		Wall->Transform.Location = Vector3(10.0f, -2.0f, 0.0f);
+
+		HealthPickUp->Transform.Scale = Vector3(0.005f);
+		HealthPickUp->Transform.Rotation.x = 90.0f;
+		HealthPickUp->Transform.Rotation.z = 90.0f;
+		HealthPickUp->Transform.Location = Vector3(5.0f, 0.0f, 5.0f);
+
+		Bomb->Transform.Location = Vector3(5.0f, 5.0f, -5.0f);
+
+
+		LightCube->Transform.Location = Vector3(10.0f, 5.0f, 5.0f);
 
 		//create the texture 
 		//(custom texture from the model)
 		TexturePtr TWall = Graphics->CreateTexture("Game/Model/damaged-wall/textures/T_Wall_Damaged_BC.png");
+
+		TexturePtr THealthPickup = Graphics->CreateTexture("Game/Model/HealthPickUp/textures/FirstAid_D.png");
+		TexturePtr SHealthPickup = Graphics->CreateTexture("Game/Model/HealthPickUp/textures/FirstAid_R.png");
+
+		TexturePtr TBomb = Graphics->CreateTexture("Game/Model/free-bomb/textures/bombBaseColor.png");
+		TexturePtr SBomb = Graphics->CreateTexture("Game/Model/free-bomb/textures/bombMetallic.png");
+
 
 		//create a material 
 		//(setting the texture to material for base colour)
 		MaterialPtr MWall = make_shared<Material>();
 		MWall->BaseColour.TextureV3 = TWall;
 
+		//Health Pick up
+		MaterialPtr MHealthPickup = make_shared<Material>();
+		MHealthPickup->BaseColour.TextureV3 = THealthPickup;
+		MHealthPickup->SpecularColour.TextureV3 = SHealthPickup;
+
+		//Bomb
+		MaterialPtr MBomb = make_shared<Material>();
+		MBomb->BaseColour.TextureV3 = TBomb;
+		MBomb->SpecularColour.TextureV3 = SBomb;
+
 		//apply the material
 		Wall->SetMaterialBySlot(1, MWall);
 
+		HealthPickUp->SetMaterialBySlot(0, MHealthPickup);
+		Bomb->SetMaterialBySlot(0, MBomb);
+
+
+		cout << "Press H for help menu" << endl;
 	}
 
 	while (!bIsGameOver)
@@ -156,18 +190,45 @@ void Game::Update()
 	//update the last frame time for the next update
 	LastFrameTime = CurrentFrameTime;
 
+	//transform
 	Model->Transform.Rotation.z += 50.0f * GetDeltaTime();
 	Model->Transform.Rotation.x += 50.0f * GetDeltaTime();
 	Model->Transform.Rotation.y += 50.0f * GetDeltaTime();
-	
+
+
 	Model2->Transform.Rotation.z -= 50.0f * GetDeltaTime();
 	Model2->Transform.Rotation.x -= 50.0f * GetDeltaTime();
 	Model2->Transform.Rotation.y -= 50.0f * GetDeltaTime();
+	
 
+	//Moving left and right Sphere
+	static float LocationShift = 2.0f;
+	if (Model2->Transform.Location.z > 10.0f)
+	{
+		LocationShift = -2.0f;
+	}
+	if (Model2->Transform.Location.z < 1.0f) {
+		LocationShift = 2.0f;
+	}
+	Model2->Transform.Location.z += LocationShift * GetDeltaTime();
+
+
+	//Growing and shrinking Health
+	static Vector3 ScaleChange = Vector3(0.005f);
+	if (HealthPickUp->Transform.Scale.x > 0.03f)
+	{
+		ScaleChange = Vector3(-0.005f);
+	}	
+	if (HealthPickUp->Transform.Scale.x < 0.004f)
+	{		
+		ScaleChange = Vector3(0.005f);
+	}
+	HealthPickUp->Transform.Scale += ScaleChange * GetFDeltaTime();
+
+
+	//input
 	Vector3 CameraInput = Vector3(0.0f);
-
 	CDirection CamDirections = Graphics->EngineDefaultCam->GetDirection();
-	float Speed = Graphics->EngineDefaultCam->GetCameraData().Speed;
 
 	if(GameInput->IsKeyDown(SDL_SCANCODE_W)){
 		CameraInput += CamDirections.Forward;
@@ -218,20 +279,22 @@ void Game::Update()
 	}
 
 
-	//Speed Shift	
+	//Speed Shift
+	//float Speed = Graphics->EngineDefaultCam->GetCameraData().Speed;
 	if (GameInput->IsKeyDown(SDL_SCANCODE_LSHIFT)) {
-		Speed = 4.0f;
+		Graphics->EngineDefaultCam->Speed(10.0f);
 		cout << "Sprting" << endl;
 	}
+	else{
+		Graphics->EngineDefaultCam->Speed(5.0f);
+	}
 	if (GameInput->IsKeyDown(SDL_SCANCODE_LCTRL)) {
-		Speed = 0.5f;
+		Graphics->EngineDefaultCam->Speed(0.8f);
 		cout << "Slow Walking" << endl;
 	}
 
-
 	//Gravity-applies to camera only
 	Vector3 gravity = Vector3(0.0f, 0.05f, 0.0f);
-
 	if (GameInput->GetGravity())
 	{
 		//Speed = 0.5f;
@@ -251,7 +314,7 @@ void Game::Update()
 		GameInput->ShowCursor(true);
 	}
 
-	//setting new FOV
+	//setting new Camera settings
 	Graphics->EngineDefaultCam->FOV(NewFOV);
 }
 

@@ -23,6 +23,7 @@ public:
 	//move camera in 3D space
 	void Translate(Vector3 Location);
 	void FOV(float FOVIncrease);
+	void Speed(float SpeedIncrease);
 
 	void AddMovementInput(Vector3 Direction);
 

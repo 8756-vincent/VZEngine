@@ -16,7 +16,7 @@ public:
 	void Draw(ShaderPtr Shader);
 
 	Vec3Texture BaseColour;
-	Vec3Texture SpceularColour;
+	Vec3Texture SpecularColour;
 	Vec3Texture EmissiveColour;
 	
 	float Shininess;

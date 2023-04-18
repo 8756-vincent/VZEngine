@@ -77,12 +77,12 @@ void main() {
 
 	PointLights[1].Colour = vec3(1.0f,0.0f,0.0f) * 10.0f;
 	PointLights[1].Position = vec3(10.0f, 5.0f, 5.0f);
-	PointLights[1].Attenuation = 1.0f;
+	PointLights[1].Attenuation = 10.0f;
 	
 	
 	vec3 result =  CalculatePointLight(SMat, ViewDir, PointLights[0]);
 	result +=  CalculatePointLight(SMat, ViewDir, PointLights[1]);
-	result +=  CalculateDirLight(SMat, ViewDir, DirLights[0]);
+	//result +=  CalculateDirLight(SMat, ViewDir, DirLights[0]);
 
 	//texture() accepts colours and coordinates to create an open gl texture
 	OutColour = vec4(result, 1.0f);
@@ -113,7 +113,7 @@ vec3 CalculateDirLight(ShaderMaterial SMat, vec3 ViewDir, DirLight Light){
 	float SpecPower = pow(max(0.0, dot(ViewDir, ReflectDir)), SMat.Shininess* 128.0f);
 
 	//create the specular highlight based on colour, angle and spec power
-	vec3 FinalSpecular = SpecPower *(Angle * SMat.Colour);
+	vec3 FinalSpecular = SpecPower * (Angle * SMat.Colour);
 
 	//return the sum of all of the light factors
 	return vec3(AmbientLight + FinalColour + FinalSpecular);

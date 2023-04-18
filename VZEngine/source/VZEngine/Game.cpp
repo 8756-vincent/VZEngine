@@ -100,7 +100,8 @@ void Game::Run()
 		Model->Transform.Location = Vector3(0.0f, 1.0f, 0.0f);
 
 		Model2->SetMaterialBySlot(0, MGrid);
-		Model2->GetMaterialBySlot(0)->EmissiveColour.MultiplierV3 = Vector3(1.0f, 0.0f, 0.0f);
+		Model2->GetMaterialBySlot(0)->EmissiveColour.MultiplierV3 = Vector3(2.0f);
+
 		Model2->Transform.Location = Vector3(-0.0f, -1.0f, 0.0f);
 
 		LightCube->GetMaterialBySlot(0)->EmissiveColour.MultiplierV3 = Vector3(2.0f);

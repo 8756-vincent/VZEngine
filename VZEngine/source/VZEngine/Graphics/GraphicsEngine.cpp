@@ -7,6 +7,8 @@
 #include "VZEngine/Graphics/texture.h"
 #include "VZEngine/Graphics/Camera.h"
 #include "VZEngine/Graphics/Material.h"
+#include "VZEngine/Collisions/Collision.h"
+
 
 GraphicsEngine::GraphicsEngine()
 {
@@ -132,6 +134,10 @@ void GraphicsEngine::Draw()
 	ClearGraphics();
 
 	HandleWireFrameMode(false);
+
+	static BoxCollisionPtr Col = make_shared<BoxCollision>(Vector3(10.0f),Vector3(10.0f), Vector3(1.0f));
+	Col->DebugDraw(Vector3(255.0f, 0.0f, 0.0f));
+
 
 	for (ModelPtr LModel : ModelStack) {
 		LModel->Draw();

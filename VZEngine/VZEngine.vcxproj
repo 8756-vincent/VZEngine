@@ -169,8 +169,8 @@
     <None Include="Game\Shaders\TextureShader\TextureShader.svert" />
     <None Include="Game\Shaders\VertexShader\VertexShader.sfrag" />
     <None Include="Game\Shaders\VertexShader\VertexShader.svert" />
-    <None Include="Game\Shaders\WireframeShader\VertexShader.sfrag" />
-    <None Include="Game\Shaders\WireframeShader\VertexShader.svert" />
+    <None Include="Game\Shaders\WireframeShader\WireframeShader.sfrag" />
+    <None Include="Game\Shaders\WireframeShader\WireframeShader.svert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

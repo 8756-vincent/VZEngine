@@ -87,6 +87,9 @@ void Game::Run()
 		Model = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
 		Model2 = Graphics->ImportModel("Game/Model/PrimitiveModels/Sphere.fbx", TextureShader);
 
+		Model->AddCollisionToModel(Vector3(2.5f));
+		Model2->AddCollisionToModel(Vector3(4.0f));
+
 
 		//import custom meshes
 		Wall = Graphics->ImportModel("Game/Model/damaged-wall/source/SM_Wall_Damaged.obj", TextureShader);
@@ -94,6 +97,7 @@ void Game::Run()
 		Bomb = Graphics->ImportModel("Game/Model/free-bomb/source/LP_bomb_uv_triangl.fbx", TextureShader);
 		LightCube = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
 
+		Wall->AddCollisionToModel(Vector3(2.5f, 8.0f, 20.0f), Vector3(0.0f, 2.0f, 0.0f));
 
 		//set materials of the models
 		Model->SetMaterialBySlot(0, MCube);
@@ -190,6 +194,7 @@ void Game::Update()
 	DeltaTime = NewDeltaTime / 1000.0;
 	//update the last frame time for the next update
 	LastFrameTime = CurrentFrameTime;
+
 
 	//transform
 	Model->Transform.Rotation.z += 50.0f * GetDeltaTime();
@@ -322,6 +327,7 @@ void Game::Update()
 void Game::Draw()
 {
 	Graphics->Draw();
+
 }
 
 void Game::CloseGame()

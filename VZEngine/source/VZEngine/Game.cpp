@@ -118,6 +118,12 @@ void Game::Run()
 		//add Collision
 		Wall->AddCollisionToModel(Vector3(1.0f, 4.0f, 10.0f), Vector3(0.0f, 2.0f, 0.0f));
 
+		Wall2->Transform.Scale = Vector3(0.05f);
+		Wall2->Transform.Rotation.y = 90.0f;
+		Wall2->Transform.Location = Vector3(15.0f, -2.0f, 0.0f);
+		//add Collision
+		Wall2->AddCollisionToModel(Vector3(1.0f, 4.0f, 10.0f), Vector3(0.0f, 2.0f, 0.0f));
+
 		//create
 		HealthPickUp = Graphics->ImportModel("Game/Model/HealthPickUp/source/FirstAidBox.fbx", TextureShader);
 		//Texture
@@ -309,18 +315,34 @@ void Game::Update()
 
 
 	//transform
-	Model->Transform.Rotation.z += 50.0f * GetDeltaTime();
-	Model->Transform.Rotation.x += 50.0f * GetDeltaTime();
-	Model->Transform.Rotation.y += 50.0f * GetDeltaTime();
+	if (Model != nullptr)
+	{
+		Model->Transform.Rotation.z += 50.0f * GetDeltaTime();
+		Model->Transform.Rotation.x += 50.0f * GetDeltaTime();
+		Model->Transform.Rotation.y += 50.0f * GetDeltaTime();
+	}
+	if (Model2 != nullptr)
+	{
+		Model2->Transform.Rotation.z -= 50.0f * GetDeltaTime();
+		Model2->Transform.Rotation.x -= 50.0f * GetDeltaTime();
+		Model2->Transform.Rotation.y -= 50.0f * GetDeltaTime();
+	}
 
 
-	Model2->Transform.Rotation.z -= 50.0f * GetDeltaTime();
-	Model2->Transform.Rotation.x -= 50.0f * GetDeltaTime();
-	Model2->Transform.Rotation.y -= 50.0f * GetDeltaTime();
 	
+
 
 	Graphics->EngineDefaultCam->Update();
+
+
+	//collision
+	CollisionPtr CamCol = Graphics->EngineDefaultCam->GetCameraCollision();
+
 	
+	if (Wall != nullptr && CamCol->IsOverLapping(*Wall->GetCollision()))
+	{
+		RemoveModelFromGame(Wall2);
+	}
 }
 
 void Game::Draw()
@@ -328,16 +350,25 @@ void Game::Draw()
 	Graphics->ClearGraphics();
 	Graphics->Draw();
 
-	Graphics->EngineDefaultCam->GetCameraCollision()->DebugDraw(Vector3(255.0f));
+	//CollisionPtr CamCol = Graphics->EngineDefaultCam->GetCameraCollision());
 
-	if (Wall != nullptr && Wall2->GetCollision()->IsOverLapping(*Wall->GetCollision()))
-	{
-		Wall2->GetCollision()->DebugDraw(Vector3(0.0f, 255.0f, 0.0f));
-	}
-	else
-	{
-		Wall2->GetCollision()->DebugDraw(Vector3(255.0f, 0.0f, 0.0f));
-	}
+	//if (Wall != nullptr && Wall2->GetCollision()->IsOverLapping(*Wall->GetCollision()))
+	//{
+	//	Wall2->GetCollision()->DebugDraw(Vector3(0.0f, 255.0f, 0.0f));
+	//}
+	//else
+	//{
+	//	Wall2->GetCollision()->DebugDraw(Vector3(255.0f, 0.0f, 0.0f));
+	//}
+
+	//if (Wall != nullptr && CamCol->IsOverLapping(*Wall->GetCollision()))
+	//{
+	//	CamCol->DebugDraw(Vector3(0.0f, 255.0f, 0.0f));
+	//}
+	//else
+	//{
+	//	CamCol->DebugDraw(Vector3(255.0f, 0.0f, 0.0f));
+	//}
 
 	Graphics->PresentGraphics();
 }
@@ -345,4 +376,13 @@ void Game::Draw()
 void Game::CloseGame()
 {
 	delete GameInput;
+}
+
+void Game::RemoveModelFromGame(ModelPtr& ModelToRemove)
+{
+	//remove from the graphics engine
+	Graphics->RemoveModel(ModelToRemove);
+
+	//change the reference to nullptr and remove from the game
+	ModelToRemove = nullptr;
 }

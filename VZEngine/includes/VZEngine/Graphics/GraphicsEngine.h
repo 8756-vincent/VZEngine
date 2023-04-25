@@ -40,7 +40,8 @@ public:
 	//screen and camera coordiantes
 	void ApplyScreenTransformation(ShaderPtr Shader);
 
-	
+	//remove a model from the stack
+	void RemoveModel(ModelPtr ModelToRemove);
 
 private:
 	//this will hold the window

@@ -51,6 +51,9 @@ private:
 	//Handle anything that need to be deleted
 	void CloseGame();
 
+	//remove a model from everywhere it needs to be removed
+	void RemoveModelFromGame(ModelPtr& ModelToRemove);
+
 private:
 	//boolean that ends the game
 	bool bIsGameOver;

@@ -252,6 +252,22 @@ void GraphicsEngine::ApplyScreenTransformation(ShaderPtr Shader)
 	Shader->SetMat4("projection", projection);
 }
 
+void GraphicsEngine::RemoveModel(ModelPtr ModelToRemove)
+{
+	//looking for the model in the model stack vector array
+	//we loong through the whole vector and if we find the value then we assign the correct index
+	//this will equal .end() if it doesn't exitst in the stack
+	ModelPtrStack::iterator ModelIndex = find(ModelStack.begin(), ModelStack.end(), ModelToRemove);
+
+	//if it's not in the array then stop  the function
+	if (ModelIndex == ModelStack.end())
+		return;
+
+	//use the iterator/index to erase the object
+	ModelStack.erase(ModelIndex);
+
+}
+
 void GraphicsEngine::HandleWireFrameMode(bool bShowWireFrameMode)
 {
 	// if wireframe is set, change it

@@ -75,7 +75,7 @@ void main() {
 	PointLights[0].Position = vec3(0.0f);
 	PointLights[0].Attenuation = 1.0f;
 
-	PointLights[1].Colour = vec3(1.0f,0.0f,0.0f) * 10.0f;
+	PointLights[1].Colour = vec3(1.0f) * 10.0f;
 	PointLights[1].Position = vec3(10.0f, 5.0f, 5.0f);
 	PointLights[1].Attenuation = 10.0f;
 	

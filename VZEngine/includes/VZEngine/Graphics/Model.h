@@ -1,6 +1,7 @@
 #pragma once
 #include "VZEngine/CoreMinimal.h"
 #include "VZEngine/Math/Transformation.h"
+#include "VZEngine/Collisions/Collision.h"
 
 struct aiNode;
 struct aiScene;

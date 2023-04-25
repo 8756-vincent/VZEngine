@@ -2,7 +2,6 @@
 #include "VZEngine/Graphics/Mesh.h"
 #include "VZEngine/Game.h"
 #include "VZEngine/Graphics/Vertex.h"
-#include "VZEngine/Collisions/Collision.h"
 
 //ASSIMP HEADERS
 #include "assimp/Importer.hpp"

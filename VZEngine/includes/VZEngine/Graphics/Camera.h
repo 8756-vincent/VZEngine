@@ -13,7 +13,7 @@ struct STCameraData
 	//opposit of near clip
 	float FarClip = 1000.0f;
 
-	float LookSensitivity = 20.0f;
+	float LookSensitivity = 0.2f;
 };
 
 class Camera {
@@ -45,6 +45,10 @@ public:
 	//Rotate the camera based on yaw
 	void RotateYaw(float Amount);
 
+	void Update();
+
+	CollisionPtr GetCameraCollision() const { return CameraCollision; }
+
 private:
 
 	//find the current direction vectors based on the roation 
@@ -61,5 +65,8 @@ private:
 
 	//hold all the extra camera info
 	STCameraData CameraData;
+
+	//add a camera collision
+	CollisionPtr CameraCollision;
 
 };

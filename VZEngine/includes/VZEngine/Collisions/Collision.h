@@ -15,7 +15,7 @@ public:
 	virtual Vector3 FindCenter() { return Vector3(0.0f); }
 
 	//draw a collision for debugging
-	virtual void DebugDraw(Vector3 Colour) {}
+	virtual void DebugDraw(Vector3 Colour) {  }
 
 	//Transform function
 	//set the location of the collision

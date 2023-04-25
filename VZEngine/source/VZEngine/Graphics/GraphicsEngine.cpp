@@ -130,19 +130,11 @@ void GraphicsEngine::ClearGraphics()
 
 void GraphicsEngine::Draw()
 {
-	ClearGraphics();
-
 	HandleWireFrameMode(false);
-
-	static BoxCollisionPtr Col = make_shared<BoxCollision>(Vector3(0.0f),Vector3(0.0f), Vector3(3.0f));
-	Col->DebugDraw(Vector3(255.0f, 0.0f, 0.0f));
-
 
 	for (ModelPtr LModel : ModelStack) {
 		LModel->Draw();
 	}
-
-	PresentGraphics();
 }
 
 SDL_Window* GraphicsEngine::GetWindow() const

@@ -341,7 +341,7 @@ void Game::Update()
 	
 	if (Wall != nullptr && CamCol->IsOverLapping(*Wall->GetCollision()))
 	{
-		RemoveModelFromGame(Wall2);
+		RemoveModelFromGame(Wall);
 	}
 }
 

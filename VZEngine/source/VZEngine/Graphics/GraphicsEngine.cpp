@@ -8,6 +8,7 @@
 #include "VZEngine/Graphics/Camera.h"
 #include "VZEngine/Graphics/Material.h"
 #include "VZEngine/Collisions/Collision.h"
+#include "SLD2/SDL_ttf.h"
 
 GraphicsEngine::GraphicsEngine()
 {

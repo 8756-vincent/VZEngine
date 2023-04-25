@@ -103,7 +103,7 @@ void Game::Run()
 
 		//import custom meshes
 		Wall = Graphics->ImportModel("Game/Model/damaged-wall/source/SM_Wall_Damaged.obj", TextureShader);
-		Wall2 = Graphics->ImportModel("Game/Model/damaged-wall/source/SM_Wall_Damaged.obj", TextureShader);
+		Wall2 = Graphics->ImportModel("Game/Model/damaged-wall/SM_Wall_Damaged.obj", TextureShader);
 		//texture
 		TexturePtr TWall = Graphics->CreateTexture("Game/Model/damaged-wall/textures/T_Wall_Damaged_BC.png");
 		//material
@@ -125,7 +125,7 @@ void Game::Run()
 		Wall2->AddCollisionToModel(Vector3(1.0f, 4.0f, 10.0f), Vector3(0.0f, 2.0f, 0.0f));
 
 		//create
-		HealthPickUp = Graphics->ImportModel("Game/Model/HealthPickUp/source/FirstAidBox.fbx", TextureShader);
+		HealthPickUp = Graphics->ImportModel("Game/Model/HealthPickUp/FirstAidBox.fbx", TextureShader);
 		//Texture
 		TexturePtr THealthPickup = Graphics->CreateTexture("Game/Model/HealthPickUp/textures/FirstAid_D.png");
 		TexturePtr SHealthPickup = Graphics->CreateTexture("Game/Model/HealthPickUp/textures/FirstAid_R.png");
@@ -141,7 +141,7 @@ void Game::Run()
 		HealthPickUp->Transform.Location = Vector3(5.0f, 0.0f, 5.0f);
 
 		//Bomb craete
-		Bomb = Graphics->ImportModel("Game/Model/free-bomb/source/LP_bomb_uv_triangl.fbx", TextureShader);	
+		Bomb = Graphics->ImportModel("Game/Model/free-bomb/LP_bomb_uv_triangl.fbx", TextureShader);	
 		//Texture
 		TexturePtr TBomb = Graphics->CreateTexture("Game/Model/free-bomb/textures/bombBaseColor.png");
 		TexturePtr SBomb = Graphics->CreateTexture("Game/Model/free-bomb/textures/bombMetallic.png");

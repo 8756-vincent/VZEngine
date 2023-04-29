@@ -84,13 +84,13 @@ void Game::Run()
 		MGrid->BaseColour.TextureV3 = TGrid;
 
 
-		//create VAO
-		Model = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
-		//set materials of the models
-		Model->SetMaterialBySlot(0, MCube);
-		//transform
-		Model->Transform.Location = Vector3(0.0f, 1.0f, 0.0f);
-		Model->AddCollisionToModel(Vector3(1.5f));
+		////create VAO
+		//Model = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
+		////set materials of the models
+		//Model->SetMaterialBySlot(0, MCube);
+		////transform
+		//Model->Transform.Location = Vector3(0.0f, 1.0f, 0.0f);
+		//Model->AddCollisionToModel(Vector3(1.5f));
 
 		//Sphere
 		Model2 = Graphics->ImportModel("Game/Model/PrimitiveModels/Sphere.fbx", TextureShader);
@@ -102,28 +102,6 @@ void Game::Run()
 		Model2->AddCollisionToModel(Vector3(2.0f));
 
 		//import custom meshes
-		Wall = Graphics->ImportModel("Game/Model/damaged-wall/source/SM_Wall_Damaged.obj", TextureShader);
-		Wall2 = Graphics->ImportModel("Game/Model/damaged-wall/SM_Wall_Damaged.obj", TextureShader);
-		//texture
-		TexturePtr TWall = Graphics->CreateTexture("Game/Model/damaged-wall/textures/T_Wall_Damaged_BC.png");
-		//material
-		MaterialPtr MWall = make_shared<Material>();
-		MWall->BaseColour.TextureV3 = TWall;
-		Wall->SetMaterialBySlot(1, MWall);
-		Wall2->SetMaterialBySlot(1, MWall);
-		//transform
-		Wall->Transform.Scale = Vector3(0.05f);
-		Wall->Transform.Rotation.y = 90.0f;
-		Wall->Transform.Location = Vector3(10.0f, -2.0f, 0.0f);
-		//add Collision
-		Wall->AddCollisionToModel(Vector3(1.0f, 4.0f, 10.0f), Vector3(0.0f, 2.0f, 0.0f));
-
-		Wall2->Transform.Scale = Vector3(0.05f);
-		Wall2->Transform.Rotation.y = 90.0f;
-		Wall2->Transform.Location = Vector3(15.0f, -2.0f, 0.0f);
-		//add Collision
-		Wall2->AddCollisionToModel(Vector3(1.0f, 4.0f, 10.0f), Vector3(0.0f, 2.0f, 0.0f));
-
 		//create
 		HealthPickUp = Graphics->ImportModel("Game/Model/HealthPickUp/FirstAidBox.fbx", TextureShader);
 		//Texture
@@ -139,8 +117,9 @@ void Game::Run()
 		HealthPickUp->Transform.Rotation.x = 90.0f;
 		HealthPickUp->Transform.Rotation.z = 90.0f;
 		HealthPickUp->Transform.Location = Vector3(5.0f, 0.0f, 5.0f);
+		HealthPickUp->AddCollisionToModel(Vector3(1.2f), Vector3(0.0f));
 
-		//Bomb craete
+		//Bomb create
 		Bomb = Graphics->ImportModel("Game/Model/free-bomb/LP_bomb_uv_triangl.fbx", TextureShader);	
 		//Texture
 		TexturePtr TBomb = Graphics->CreateTexture("Game/Model/free-bomb/textures/bombBaseColor.png");
@@ -152,13 +131,92 @@ void Game::Run()
 		Bomb->SetMaterialBySlot(0, MBomb);
 		//transform
 		Bomb->Transform.Location = Vector3(5.0f, 5.0f, -5.0f);
+		Bomb->AddCollisionToModel(Vector3(0.0f), Vector3(1.0f));
 
 		//LightCube create
 		LightCube = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
 		//Set Material
 		LightCube->GetMaterialBySlot(0)->EmissiveColour.MultiplierV3 = Vector3(2.0f);
-		LightCube->Transform.Location = Vector3(10.0f, 5.0f, 5.0f);
+		LightCube->Transform.Location = Vector3(0.0f, 50.0f, 0.0f);
 
+
+		//Floor
+		Floor_1 = Graphics->ImportModel("Game/Model/floor-material/plane.fbx", TextureShader);		
+		TexturePtr TFloor = Graphics->CreateTexture("Game/Model/floor-material/textures/Floortile1AO.png");
+		MaterialPtr MFloor = make_shared<Material>();
+		MFloor->BaseColour.TextureV3 = TFloor;
+		Floor_1->SetMaterialBySlot(0, MFloor);
+		//Transform
+		Floor_1->Transform.Scale = Vector3(0.125f);
+		Floor_1->Transform.Location = Vector3(0.0f, -2.5f, 0.0f);
+		Floor_1->AddCollisionToModel(Vector3(50.0f,0.1f,50.0f));
+
+		//Wall
+		Wall = Graphics->ImportModel("Game/Model/damaged-wall/wall/SM_Wall_Damaged.obj", TextureShader);
+		Wall2 = Graphics->ImportModel("Game/Model/damaged-wall/wall/SM_Wall_Damaged.obj", TextureShader);
+		Wall3 = Graphics->ImportModel("Game/Model/damaged-wall/wall/SM_Wall_Damaged.obj", TextureShader);
+		Wall4 = Graphics->ImportModel("Game/Model/damaged-wall/wall/SM_Wall_Damaged.obj", TextureShader);
+		TexturePtr TWall = Graphics->CreateTexture("Game/Model/damaged-wall/textures/T_Wall_Damaged_BC.png");
+		MaterialPtr MWall = make_shared<Material>();
+		MWall->BaseColour.TextureV3 = TWall;
+		Wall->SetMaterialBySlot(1, MWall);
+		Wall2->SetMaterialBySlot(1, MWall);
+		Wall3->SetMaterialBySlot(1, MWall);
+		Wall4->SetMaterialBySlot(1, MWall);
+		//transform
+		Wall->Transform.Scale = Vector3(0.15f);
+		Wall->Transform.Rotation.y = 90.0f;
+		Wall->Transform.Location = Vector3(25.9f, -2.2f, 0.0f);
+		//add Collision
+		Wall->AddCollisionToModel(Vector3(3.0f, 12.0f, 30.0f), Vector3(0.0f, 6.0f, 0.0f));
+
+		Wall2->Transform.Scale = Vector3(0.15f);
+		Wall2->Transform.Rotation.y = -90.0f;
+		Wall2->Transform.Location = Vector3(-25.1f, -2.2f, 0.0f);
+		//add Collision
+		Wall2->AddCollisionToModel(Vector3(3.0f, 12.0f, 30.0f), Vector3(0.0f, 6.0f, 0.0f));
+
+		Wall3->Transform.Scale = Vector3(0.15f);
+		Wall3->Transform.Location = Vector3(0.0f, -2.2f, -25.1f);
+		//add Collision
+		Wall3->AddCollisionToModel(Vector3(30.0f, 12.0f, 3.0f), Vector3(0.0f, 6.0f, 0.0f));
+		
+		Wall4->Transform.Scale = Vector3(0.15f);
+		Wall4->Transform.Location = Vector3(0.0f, -2.2f, 25.1f);
+		//add Collision
+		Wall4->AddCollisionToModel(Vector3(30.0f, 12.0f, 3.0f), Vector3(0.0f, 6.0f, 0.0f));
+
+		Corner1 = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
+		//set materials of the models
+		Corner1->SetMaterialBySlot(0, MCube);
+		//transform
+		Corner1->Transform.Scale = Vector3(2.0f);
+		Corner1->Transform.Location = Vector3(21.0f, -0.7f, -21.0f);
+		Corner1->AddCollisionToModel(Vector3(1.5f));
+
+		Corner2 = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
+		//set materials of the models
+		Corner2->SetMaterialBySlot(0, MCube);
+		//transform
+		Corner2->Transform.Scale = Vector3(2.0f);
+		Corner2->Transform.Location = Vector3(21.0f, -0.7f, 21.0f);
+		Corner2->AddCollisionToModel(Vector3(1.5f));
+
+		Corner3 = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
+		//set materials of the models
+		Corner3->SetMaterialBySlot(0, MCube);
+		//transform
+		Corner3->Transform.Scale = Vector3(2.0f);
+		Corner3->Transform.Location = Vector3(-21.0f, -0.7f, -21.0f);
+		Corner3->AddCollisionToModel(Vector3(1.5f));
+
+		Corner4 = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
+		//set materials of the models
+		Corner4->SetMaterialBySlot(0, MCube);
+		//transform
+		Corner4->Transform.Scale = Vector3(2.0f);
+		Corner4->Transform.Location = Vector3(-21.0f, -0.7f, 21.0f);
+		Corner4->AddCollisionToModel(Vector3(1.5f));
 
 		cout << "Press H for help menu" << endl;
 	}
@@ -183,37 +241,26 @@ void Game::ProcessInput()
 {
 	//run the input dectection for our game input
 	GameInput->ProcessInput();
-	//Moving left and right Sphere
-	static float LocationShift = 2.0f;
-	if (Model2->Transform.Location.z > 10.0f)
-	{
-		LocationShift = -2.0f;
-	}
-	if (Model2->Transform.Location.z < 1.0f) {
-		LocationShift = 2.0f;
-	}
-	Model2->Transform.Location.z += LocationShift * GetDeltaTime();
-
-
-	//Growing and shrinking Health
-	static Vector3 ScaleChange = Vector3(0.005f);
-	if (HealthPickUp->Transform.Scale.x > 0.03f)
-	{
-		ScaleChange = Vector3(-0.005f);
-	}
-	if (HealthPickUp->Transform.Scale.x < 0.004f)
-	{
-		ScaleChange = Vector3(0.005f);
-	}
-	HealthPickUp->Transform.Scale += ScaleChange * GetFDeltaTime();
-
 
 	//input
 	Vector3 CameraInput = Vector3(0.0f);
 	CDirection CamDirections = Graphics->EngineDefaultCam->GetDirection();
+	CamCol = Graphics->EngineDefaultCam->GetCameraCollision();
 
 	if (GameInput->IsKeyDown(SDL_SCANCODE_W)) {
-		CameraInput += CamDirections.Forward;
+		if (!CamCol->IsOverLapping(*Wall->GetCollision()))
+		{
+			CameraInput += CamDirections.Forward;
+		}
+		else
+		{
+			CameraInput += -CamDirections.Forward;
+		}
+
+		cout <<"x" << Graphics->EngineDefaultCam->GetTransform().Location.x << endl;
+		cout << "y" << Graphics->EngineDefaultCam->GetTransform().Location.y << endl;
+		cout << "z" << Graphics->EngineDefaultCam->GetTransform().Location.z << endl;
+		
 	}
 
 	if (GameInput->IsKeyDown(SDL_SCANCODE_S)) {
@@ -264,7 +311,7 @@ void Game::ProcessInput()
 	//Speed Shift
 	//float Speed = Graphics->EngineDefaultCam->GetCameraData().Speed;
 	if (GameInput->IsKeyDown(SDL_SCANCODE_LSHIFT)) {
-		Graphics->EngineDefaultCam->Speed(10.0f);
+		Graphics->EngineDefaultCam->Speed(20.0f);
 		cout << "Sprting" << endl;
 	}
 	else {
@@ -315,34 +362,81 @@ void Game::Update()
 
 
 	//transform
-	if (Model != nullptr)
+	if (Corner1 != nullptr)
 	{
-		Model->Transform.Rotation.z += 50.0f * GetDeltaTime();
-		Model->Transform.Rotation.x += 50.0f * GetDeltaTime();
-		Model->Transform.Rotation.y += 50.0f * GetDeltaTime();
+		Corner1->Transform.Rotation.z += 50.0f * GetDeltaTime();
+		Corner1->Transform.Rotation.x += 50.0f * GetDeltaTime();
+		Corner1->Transform.Rotation.y += 50.0f * GetDeltaTime();
 	}
+	if (Corner2 != nullptr)
+	{
+		Corner2->Transform.Rotation.z -= 50.0f * GetDeltaTime();
+		Corner2->Transform.Rotation.x -= 50.0f * GetDeltaTime();
+		Corner2->Transform.Rotation.y -= 50.0f * GetDeltaTime();
+	}
+	if (Corner3 != nullptr)
+	{
+		Corner3->Transform.Rotation.z += 50.0f * GetDeltaTime();
+		Corner3->Transform.Rotation.x += 50.0f * GetDeltaTime();
+		Corner3->Transform.Rotation.y += 50.0f * GetDeltaTime();
+	}
+	if (Corner4 != nullptr)
+	{
+		Corner4->Transform.Rotation.z -= 50.0f * GetDeltaTime();
+		Corner4->Transform.Rotation.x -= 50.0f * GetDeltaTime();
+		Corner4->Transform.Rotation.y -= 50.0f * GetDeltaTime();
+	}
+
+	//Moving left and right Sphere
+	static float LocationShift = 2.0f;
 	if (Model2 != nullptr)
 	{
-		Model2->Transform.Rotation.z -= 50.0f * GetDeltaTime();
-		Model2->Transform.Rotation.x -= 50.0f * GetDeltaTime();
-		Model2->Transform.Rotation.y -= 50.0f * GetDeltaTime();
+		if (Model2->Transform.Location.z > 10.0f)
+		{
+			LocationShift = -2.0f;
+		}
+		if (Model2->Transform.Location.z < 1.0f) {
+			LocationShift = 2.0f;
+		}
+		Model2->Transform.Location.z += LocationShift * GetDeltaTime();
 	}
 
 
-	
-
+	//Growing and shrinking Health
+	static Vector3 ScaleChange = Vector3(0.005f);
+	if (HealthPickUp != nullptr)
+	{
+		if (HealthPickUp->Transform.Scale.x > 0.03f)
+		{
+			ScaleChange = Vector3(-0.005f);
+		}
+		if (HealthPickUp->Transform.Scale.x < 0.004f)
+		{
+			ScaleChange = Vector3(0.005f);
+		}
+		HealthPickUp->Transform.Scale += ScaleChange * GetFDeltaTime();
+	}
 
 	Graphics->EngineDefaultCam->Update();
 
 
 	//collision
-	CollisionPtr CamCol = Graphics->EngineDefaultCam->GetCameraCollision();
-
-	
-	if (Wall != nullptr && CamCol->IsOverLapping(*Wall->GetCollision()))
+	CamCol = Graphics->EngineDefaultCam->GetCameraCollision();	
+	/*if (Wall != nullptr && CamCol->IsOverLapping(*Wall->GetCollision()))
 	{
 		RemoveModelFromGame(Wall);
+	}*/
+
+	if (HealthPickUp != nullptr && CamCol->IsOverLapping(*HealthPickUp->GetCollision()))
+	{
+		RemoveModelFromGame(HealthPickUp);
 	}
+	if (Bomb != nullptr && CamCol->IsOverLapping(*Bomb->GetCollision()))
+	{
+		RemoveModelFromGame(Bomb);
+	}
+
+	
 }
 
 void Game::Draw()

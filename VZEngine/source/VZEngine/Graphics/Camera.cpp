@@ -38,7 +38,7 @@ void Camera::AddMovementInput(Vector3 Direction)
 	//dont normalise if the direction is 0
 	Direction = glm::normalize(Direction);
 	
-	//set the celocity of the camera using the speed and input direction
+	//set the velocity of the camera using the speed and input direction
 	Vector3 Vel = Direction * (CameraData.Speed * Game::GetGameInstance().GetFDeltaTime());
 
 	//create a new location from the camera based on it's position and the current velocity

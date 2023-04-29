@@ -67,13 +67,22 @@ private:
 	//read the input of the player
 	Input* GameInput;
 
+	CollisionPtr CamCol;
+
 	//temp mesh var
 	ModelPtr Model2;
-	ModelPtr Model;
-
+	
+	ModelPtr Floor_1;
 
 	ModelPtr Wall;
 	ModelPtr Wall2;
+	ModelPtr Wall3;
+	ModelPtr Wall4;
+
+	ModelPtr Corner1;
+	ModelPtr Corner2;
+	ModelPtr Corner3;
+	ModelPtr Corner4;
 
 	ModelPtr LightCube;
 

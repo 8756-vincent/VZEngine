@@ -69,15 +69,16 @@ void main() {
 
 	DirLights[0].Colour = vec3(1.0f);
 	DirLights[0].Direction = vec3(0.0f, -1.0f, 0.0f);
-	DirLights[0].AmbientLight = vec3(0.1f);
+	DirLights[0].AmbientLight = vec3(1f);
 	
 	PointLights[0].Colour = vec3(1.0f,1.0f,0.0f) * 10.0f;
 	PointLights[0].Position = vec3(0.0f);
-	PointLights[0].Attenuation = 1.0f;
+	PointLights[0].Attenuation = 10.0f;
 
+	//sun
 	PointLights[1].Colour = vec3(1.0f) * 10.0f;
-	PointLights[1].Position = vec3(10.0f, 5.0f, 5.0f);
-	PointLights[1].Attenuation = 10.0f;
+	PointLights[1].Position = vec3(0.0f, 50.0f, 0.0f);
+	PointLights[1].Attenuation = 100.0f;
 	
 	
 	vec3 result =  CalculatePointLight(SMat, ViewDir, PointLights[0]);

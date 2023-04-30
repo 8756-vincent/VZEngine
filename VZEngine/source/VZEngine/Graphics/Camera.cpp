@@ -6,12 +6,14 @@
 Camera::Camera()
 {
 	UpdateDirectionVectors();
-	Transform.Location += -Directions.Forward * 2.0f;
+	Transform.Location = Vector3(-16.0f, -0.0f, 0.0f);
 
+	Transform.Location += -Directions.Forward * 2.0f;
 	//@param1 - Position of collision
 	//@param2 - Offset of the location
 	//@param3 - Size of the camera collision
 	CameraCollision = make_shared<BoxCollision>(Transform.Location, Vector3(0.0f), Vector3(2.0f));
+
 }
 
 void Camera::Translate(Vector3 Location)

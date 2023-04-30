@@ -67,23 +67,28 @@ void main() {
 	//gives us a direction between vertex and the camera
 	vec3 ViewDir = normalize(CamPosition - VPosition);
 
-	DirLights[0].Colour = vec3(1.0f);
+	DirLights[0].Colour = vec3(0.0f);
 	DirLights[0].Direction = vec3(0.0f, -1.0f, 0.0f);
-	DirLights[0].AmbientLight = vec3(1f);
+	DirLights[0].AmbientLight = vec3(0.1f);
 	
-	PointLights[0].Colour = vec3(1.0f,1.0f,0.0f) * 10.0f;
-	PointLights[0].Position = vec3(0.0f);
+	PointLights[0].Colour = vec3(2.0f,2.0f,0.0f);
+	PointLights[0].Position = vec3(-12.7f, 5.5f, -0.8f);
 	PointLights[0].Attenuation = 10.0f;
+	
+	PointLights[2].Colour = vec3(2.0f,2.0f,0.0f);
+	PointLights[2].Position = vec3(17.0f, 9.0f, 0.0f);
+	PointLights[2].Attenuation = 50.0f;
 
 	//sun
 	PointLights[1].Colour = vec3(1.0f) * 10.0f;
 	PointLights[1].Position = vec3(0.0f, 50.0f, 0.0f);
-	PointLights[1].Attenuation = 100.0f;
+	PointLights[1].Attenuation = 50.0f;
 	
 	
-	vec3 result =  CalculatePointLight(SMat, ViewDir, PointLights[0]);
-	result +=  CalculatePointLight(SMat, ViewDir, PointLights[1]);
-	//result +=  CalculateDirLight(SMat, ViewDir, DirLights[0]);
+	vec3 result =  CalculateDirLight(SMat, ViewDir, DirLights[0]);
+	result +=  CalculatePointLight(SMat, ViewDir, PointLights[0]);
+	//result +=  CalculatePointLight(SMat, ViewDir, PointLights[1]);
+	result +=  CalculatePointLight(SMat, ViewDir, PointLights[2]);
 
 	//texture() accepts colours and coordinates to create an open gl texture
 	OutColour = vec4(result, 1.0f);

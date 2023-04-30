@@ -15,9 +15,12 @@ public:
 	void PresentGraphics();
 	//clear the old frame graphics
 	void ClearGraphics();
-	
+
 	void Draw();
 
+	float calHP(float damage) { return HP += damage; }
+	float GetHP() { return HP; }
+	
 	//return the sdl window
 	SDL_Window* GetWindow() const;
 
@@ -72,4 +75,6 @@ public:
 
 	//dafault material
 	MaterialPtr DefaultEngineMaterial;
+
+	float HP;
 };

@@ -16,6 +16,7 @@ GraphicsEngine::GraphicsEngine()
 	SdlGLContext = NULL;
 	bWireFrameMode = false;
 	EngineDefaultCam = make_shared<Camera>();	
+	HP = 100.0f;
 }
 
 GraphicsEngine::~GraphicsEngine()

@@ -74,16 +74,12 @@ void Game::Run()
 		//texture
 		TexturePtr TCube = Graphics->CreateTexture("Game/Texture/multiCube.jpg");
 		TexturePtr TGrid = Graphics->CreateTexture("Game/Texture/concrete.jpg");
-
 		//create the material
 		MaterialPtr MCube = make_shared<Material>();
 		MaterialPtr MGrid = make_shared<Material>();
-
 		//assign the base colour of the materials using the textures
 		MCube->BaseColour.TextureV3 = TCube;
 		MGrid->BaseColour.TextureV3 = TGrid;
-
-
 		////create VAO
 		//Model = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
 		////set materials of the models
@@ -92,13 +88,25 @@ void Game::Run()
 		//Model->Transform.Location = Vector3(0.0f, 1.0f, 0.0f);
 		//Model->AddCollisionToModel(Vector3(1.5f));
 
-		//Sphere
-		Model2 = Graphics->ImportModel("Game/Model/PrimitiveModels/Sphere.fbx", TextureShader);
+
+		Model = Graphics->ImportModel("Game/Model/shiba//shiba/shiba.FBX", TextureShader);
 		//set material
-		Model2->SetMaterialBySlot(0, MGrid);
-		Model2->GetMaterialBySlot(0)->EmissiveColour.MultiplierV3 = Vector3(2.0f);
+		TexturePtr TShaiba = Graphics->CreateTexture("Game/Model/shiba/textures/default_Base_Color.png");
+		MaterialPtr MShaiba = make_shared<Material>();
+		MShaiba->BaseColour.TextureV3 = TShaiba;
+		Model->SetMaterialBySlot(0, MShaiba);
+		//Transform
+		Model->Transform.Location = Vector3(-0.0f, -1.0f, -8.0f);
+		Model->Transform.Rotation.x = -90.0f;
+		Model->AddCollisionToModel(Vector3(2.0f));
+
+		//Shiba 2
+		Model2 = Graphics->ImportModel("Game/Model/shiba//shiba/shiba.FBX", TextureShader);
+		//set material
+		Model2->SetMaterialBySlot(0, MShaiba);
 		//Transform
 		Model2->Transform.Location = Vector3(-0.0f, -1.0f, 0.0f);
+		Model2->Transform.Rotation.x = -90.0f;
 		Model2->AddCollisionToModel(Vector3(2.0f));
 
 		//import custom meshes
@@ -130,8 +138,19 @@ void Game::Run()
 		MBomb->SpecularColour.TextureV3 = SBomb;
 		Bomb->SetMaterialBySlot(0, MBomb);
 		//transform
-		Bomb->Transform.Location = Vector3(5.0f, 5.0f, -5.0f);
-		Bomb->AddCollisionToModel(Vector3(0.0f), Vector3(1.0f));
+		Bomb->Transform.Scale = Vector3(0.5f);
+		Bomb->Transform.Rotation.x = -90.0f;
+		Bomb->Transform.Location = Vector3(-10.0f, -1.0f, -5.0f);
+		Bomb->AddCollisionToModel(Vector3(2.0f));
+
+		Goal = Graphics->ImportModel("Game/Model/cheap-fusion-coil/FusionCoil.obj", TextureShader);
+		TexturePtr TGoal = Graphics->CreateTexture("Game/Model/free-bomb/Diffuse.jpg");
+		MaterialPtr MGoal = make_shared<Material>();
+		MGoal->BaseColour.TextureV3 = TGoal;
+		Goal->SetMaterialBySlot(1, MGoal);
+		Goal->Transform.Location = Vector3(20.0f, -1.0f, 5.0f);
+		Goal->AddCollisionToModel(Vector3(2.0f));
+
 
 		//LightCube create
 		LightCube = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
@@ -139,6 +158,14 @@ void Game::Run()
 		LightCube->GetMaterialBySlot(0)->EmissiveColour.MultiplierV3 = Vector3(2.0f);
 		LightCube->Transform.Location = Vector3(0.0f, 50.0f, 0.0f);
 
+		LightSphere = Graphics->ImportModel("Game/Model/PrimitiveModels/Sphere.fbx", TextureShader);
+		//Set Material
+		LightSphere->Transform.Location = Vector3(-12.7f, 8.5f, -0.8f);
+		LightSphere->GetMaterialBySlot(0)->EmissiveColour.MultiplierV3 = Vector3(2.0f,2.0f,0.0f);
+
+		LightSphere2 = Graphics->ImportModel("Game/Model/PrimitiveModels/Sphere.fbx", TextureShader);
+		//Set Material
+		LightSphere2->Transform.Location = Vector3(20.0f, 8.0f, 0.0f);
 
 		//Floor
 		Floor_1 = Graphics->ImportModel("Game/Model/floor-material/plane.fbx", TextureShader);		
@@ -150,6 +177,7 @@ void Game::Run()
 		Floor_1->Transform.Scale = Vector3(0.125f);
 		Floor_1->Transform.Location = Vector3(0.0f, -2.5f, 0.0f);
 		Floor_1->AddCollisionToModel(Vector3(50.0f,0.1f,50.0f));
+
 
 		//Wall
 		Wall = Graphics->ImportModel("Game/Model/damaged-wall/wall/SM_Wall_Damaged.obj", TextureShader);
@@ -192,7 +220,7 @@ void Game::Run()
 		//transform
 		Corner1->Transform.Scale = Vector3(2.0f);
 		Corner1->Transform.Location = Vector3(21.0f, -0.7f, -21.0f);
-		Corner1->AddCollisionToModel(Vector3(1.5f));
+		Corner1->AddCollisionToModel(Vector3(2.0f));
 
 		Corner2 = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
 		//set materials of the models
@@ -200,7 +228,7 @@ void Game::Run()
 		//transform
 		Corner2->Transform.Scale = Vector3(2.0f);
 		Corner2->Transform.Location = Vector3(21.0f, -0.7f, 21.0f);
-		Corner2->AddCollisionToModel(Vector3(1.5f));
+		Corner2->AddCollisionToModel(Vector3(2.0f));
 
 		Corner3 = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
 		//set materials of the models
@@ -208,7 +236,7 @@ void Game::Run()
 		//transform
 		Corner3->Transform.Scale = Vector3(2.0f);
 		Corner3->Transform.Location = Vector3(-21.0f, -0.7f, -21.0f);
-		Corner3->AddCollisionToModel(Vector3(1.5f));
+		Corner3->AddCollisionToModel(Vector3(2.0f));
 
 		Corner4 = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
 		//set materials of the models
@@ -216,7 +244,7 @@ void Game::Run()
 		//transform
 		Corner4->Transform.Scale = Vector3(2.0f);
 		Corner4->Transform.Location = Vector3(-21.0f, -0.7f, 21.0f);
-		Corner4->AddCollisionToModel(Vector3(1.5f));
+		Corner4->AddCollisionToModel(Vector3(2.0f));
 
 		cout << "Press H for help menu" << endl;
 	}
@@ -248,19 +276,26 @@ void Game::ProcessInput()
 	CamCol = Graphics->EngineDefaultCam->GetCameraCollision();
 
 	if (GameInput->IsKeyDown(SDL_SCANCODE_W)) {
-		if (!CamCol->IsOverLapping(*Wall->GetCollision()))
-		{
-			CameraInput += CamDirections.Forward;
-		}
-		else
+		if (CamCol->IsOverLapping(*Wall->GetCollision()))
 		{
 			CameraInput += -CamDirections.Forward;
 		}
-
-		cout <<"x" << Graphics->EngineDefaultCam->GetTransform().Location.x << endl;
-		cout << "y" << Graphics->EngineDefaultCam->GetTransform().Location.y << endl;
-		cout << "z" << Graphics->EngineDefaultCam->GetTransform().Location.z << endl;
-		
+		else if (CamCol->IsOverLapping(*Wall2->GetCollision()))
+		{
+			CameraInput += -CamDirections.Forward;
+		}
+		else if (CamCol->IsOverLapping(*Wall3->GetCollision()))
+		{
+			CameraInput += -CamDirections.Forward;
+		}
+		else if (CamCol->IsOverLapping(*Wall4->GetCollision()))
+		{
+			CameraInput += -CamDirections.Forward;
+		}
+		else
+		{
+			CameraInput += CamDirections.Forward;
+		}
 	}
 
 	if (GameInput->IsKeyDown(SDL_SCANCODE_S)) {
@@ -284,6 +319,9 @@ void Game::ProcessInput()
 	if (GameInput->IsKeyDown(SDL_SCANCODE_E)) {
 		CameraInput += -CamDirections.Up;
 	}
+	
+
+	
 
 	//FOV
 	float NewFOV = Graphics->EngineDefaultCam->GetCameraData().FOV;
@@ -312,14 +350,12 @@ void Game::ProcessInput()
 	//float Speed = Graphics->EngineDefaultCam->GetCameraData().Speed;
 	if (GameInput->IsKeyDown(SDL_SCANCODE_LSHIFT)) {
 		Graphics->EngineDefaultCam->Speed(20.0f);
-		cout << "Sprting" << endl;
 	}
 	else {
 		Graphics->EngineDefaultCam->Speed(5.0f);
 	}
 	if (GameInput->IsKeyDown(SDL_SCANCODE_LCTRL)) {
 		Graphics->EngineDefaultCam->Speed(0.8f);
-		cout << "Slow Walking" << endl;
 	}
 
 	//Gravity-applies to camera only
@@ -347,8 +383,18 @@ void Game::ProcessInput()
 	Graphics->EngineDefaultCam->FOV(NewFOV);
 }
 
+
+
 void Game::Update()
 {
+	if (Graphics->GetHP() <=0)
+	{
+		cout << endl << "You died, we'll get them next time." << endl;
+		SDL_Delay(2000);
+		bIsGameOver = true;
+		return;
+	}
+
 	//set delta time first always
 	static double LastFrameTime = 0.0;
 	//set the current time since the game has passed
@@ -360,7 +406,52 @@ void Game::Update()
 	//update the last frame time for the next update
 	LastFrameTime = CurrentFrameTime;
 
+	//Moving left and right shiba
+	static float LocationShift = 2.0f;
+	CamCol = Graphics->EngineDefaultCam->GetCameraCollision();
 
+	static float movement = -2.0f;
+	if (Model != nullptr)
+	{		
+		if (Model->Transform.Location.z > -1.0f)
+		{
+			movement = -2.0f;
+			Model->Transform.Rotation.z = 180.0f;
+		}
+		if (Model->Transform.Location.z < -20.0f) {
+			movement = 2.0f;
+			Model->Transform.Rotation.z = 0.0f;
+		}
+		Model->Transform.Location.z += movement * GetDeltaTime();
+
+		if (CamCol->IsOverLapping(*Model->GetCollision()))
+		{
+			Graphics->calHP(-0.1f);
+			cout << endl << "You got ambushed lost 5hp. Remaining: " << Graphics->GetHP() << endl;
+		}
+
+	}
+
+	if (Model2 != nullptr)
+	{
+		if (Model2->Transform.Location.z > 10.0f)
+		{
+			LocationShift = -2.0f;
+			Model2->Transform.Rotation.z = 180.0f;
+		}
+		if (Model2->Transform.Location.z < 1.0f) {
+			LocationShift = 2.0f;
+			Model2->Transform.Rotation.z = 0.0f;
+		}
+		Model2->Transform.Location.z += LocationShift * GetDeltaTime();
+
+		if (CamCol->IsOverLapping(*Model2->GetCollision()))
+		{
+			Graphics->calHP(-0.1f);
+			cout << endl << "You got ambushed lost 5hp. Remaining: " << Graphics->GetHP() << endl;
+			
+		}
+	}
 	//transform
 	if (Corner1 != nullptr)
 	{
@@ -387,19 +478,7 @@ void Game::Update()
 		Corner4->Transform.Rotation.y -= 50.0f * GetDeltaTime();
 	}
 
-	//Moving left and right Sphere
-	static float LocationShift = 2.0f;
-	if (Model2 != nullptr)
-	{
-		if (Model2->Transform.Location.z > 10.0f)
-		{
-			LocationShift = -2.0f;
-		}
-		if (Model2->Transform.Location.z < 1.0f) {
-			LocationShift = 2.0f;
-		}
-		Model2->Transform.Location.z += LocationShift * GetDeltaTime();
-	}
+
 
 
 	//Growing and shrinking Health
@@ -415,27 +494,31 @@ void Game::Update()
 			ScaleChange = Vector3(0.005f);
 		}
 		HealthPickUp->Transform.Scale += ScaleChange * GetFDeltaTime();
+
+		if (CamCol->IsOverLapping(*HealthPickUp->GetCollision()))
+		{
+			RemoveModelFromGame(HealthPickUp);
+			Graphics->calHP(50.f);
+			cout<< endl << "You Gain 50hp. " << endl;
+		}
+		
 	}
 
 	Graphics->EngineDefaultCam->Update();
-
-
-	//collision
-	CamCol = Graphics->EngineDefaultCam->GetCameraCollision();	
-	/*if (Wall != nullptr && CamCol->IsOverLapping(*Wall->GetCollision()))
-	{
-		RemoveModelFromGame(Wall);
-	}*/
-
-	if (HealthPickUp != nullptr && CamCol->IsOverLapping(*HealthPickUp->GetCollision()))
-	{
-		RemoveModelFromGame(HealthPickUp);
-	}
+	
 	if (Bomb != nullptr && CamCol->IsOverLapping(*Bomb->GetCollision()))
 	{
 		RemoveModelFromGame(Bomb);
+		Graphics->calHP(-25.f);
+		cout << endl << "You got ambushed lost 25hp. Remaining: " << Graphics->GetHP() << endl;
 	}
-
+	
+	if (Goal != nullptr && CamCol->IsOverLapping(*Goal->GetCollision()))
+	{
+		RemoveModelFromGame(Goal);
+		cout << endl << "You got the item you can close the game now " << endl;
+		cout << endl << "You Finished in:  "<< SDL_GetTicks64()/1000 << " Seconds" << endl;
+	}
 	
 }
 
@@ -443,27 +526,6 @@ void Game::Draw()
 {
 	Graphics->ClearGraphics();
 	Graphics->Draw();
-
-	//CollisionPtr CamCol = Graphics->EngineDefaultCam->GetCameraCollision());
-
-	//if (Wall != nullptr && Wall2->GetCollision()->IsOverLapping(*Wall->GetCollision()))
-	//{
-	//	Wall2->GetCollision()->DebugDraw(Vector3(0.0f, 255.0f, 0.0f));
-	//}
-	//else
-	//{
-	//	Wall2->GetCollision()->DebugDraw(Vector3(255.0f, 0.0f, 0.0f));
-	//}
-
-	//if (Wall != nullptr && CamCol->IsOverLapping(*Wall->GetCollision()))
-	//{
-	//	CamCol->DebugDraw(Vector3(0.0f, 255.0f, 0.0f));
-	//}
-	//else
-	//{
-	//	CamCol->DebugDraw(Vector3(255.0f, 0.0f, 0.0f));
-	//}
-
 	Graphics->PresentGraphics();
 }
 

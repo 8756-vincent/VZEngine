@@ -9,6 +9,7 @@ Input::Input()
 	KeyboardState = SDL_GetKeyboardState(NULL);
 	MouseXDelta = MouseYDelta = 0;
 	ScrollDelta = 0;
+	freeCam = true;
 }
 
 void Input::ProcessInput()
@@ -58,6 +59,18 @@ void Input::ProcessInput()
 					cout << "Gravity is off" << endl;
 				}
 				break;
+			case SDLK_f: // on close button pressed
+				if (!GetFreeCam())
+				{
+					SerFreeCam(true);
+					cout << "Free camera is on" << endl;
+				}
+				else
+				{
+					SerFreeCam(false);
+					cout << "Free camera is off" << endl;
+				}
+				break;
 			default:
 				break;
 			}
@@ -89,7 +102,7 @@ bool Input::IsKeyDown(SDL_Scancode key)
 
 void Input::HelpMenu()
 {
-	cout << "        Help Menu" << endl;
+	cout << "\t\t\tHelp Menu" << endl;
 	cout << "1. WASD to Move" << endl;
 	cout << "2. QE to go up and down" << endl;
 	cout << "3. Hold RMB to look around" << endl;
@@ -97,8 +110,9 @@ void Input::HelpMenu()
 	cout << "5. Mouse Scroll Down decrease FOV" << endl;
 	cout << "6. R to reset FOV" << endl;
 	cout << "7. LShift to go faster" << endl;
-	cout << "8. LCtrl to go slow walk/speed" << endl << endl;
-	cout << "9. G to activate gravity" << endl << endl;
+	cout << "8. LCtrl to go slow walk/speed" << endl;
+	cout << "9. G to activate gravity" << endl;
+	cout << "10. F to activate free camera" << endl << endl;
 }
 
 bool Input::IsMouseButtonDown(MouseButtons Button)

@@ -70,6 +70,7 @@ private:
 	CollisionPtr CamCol;
 
 	//temp mesh var
+	ModelPtr Model;
 	ModelPtr Model2;
 	
 	ModelPtr Floor_1;
@@ -86,6 +87,10 @@ private:
 
 	ModelPtr LightCube;
 
+	ModelPtr LightSphere;
+	ModelPtr LightSphere2;
+
 	ModelPtr HealthPickUp;
 	ModelPtr Bomb;
+	ModelPtr Goal;
 };

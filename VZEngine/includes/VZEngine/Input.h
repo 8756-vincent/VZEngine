@@ -20,7 +20,9 @@ public:
 	//Hint* SDL_SCANCODE_KEY(SDL_SCANCODE_W)
 	bool IsKeyDown(SDL_Scancode key);
 	bool TurnGravityOn(bool gravity) { return this->gravity = gravity; }
+	bool SerFreeCam(bool freeCam) { return this->freeCam = freeCam; }
 	bool GetGravity() { return gravity; }
+	bool GetFreeCam() { return freeCam; }
 	void HelpMenu();
 
 	bool IsMouseButtonDown(MouseButtons Button);
@@ -55,4 +57,5 @@ private:
 	bool MouseButtonStates[10] = { false };
 	
 	bool gravity;
+	bool freeCam;
 };

@@ -423,8 +423,8 @@ void Game::Update()
 
 		if (CamCol->IsOverLapping(*Model->GetCollision()))
 		{
-			Graphics->calHP(-0.1f);
-			cout << endl << "You got ambushed lost 5hp. Remaining: " << Graphics->GetHP() << endl;
+			Graphics->calHP(-0.5f);
+			cout << endl << "You got ambushed lost 0.5hp. Remaining: " << Graphics->GetHP() << endl;
 		}
 
 	}
@@ -444,8 +444,8 @@ void Game::Update()
 
 		if (CamCol->IsOverLapping(*Model2->GetCollision()))
 		{
-			Graphics->calHP(-0.1f);
-			cout << endl << "You got ambushed lost 5hp. Remaining: " << Graphics->GetHP() << endl;
+			Graphics->calHP(-0.5f);
+			cout << endl << "You got ambushed lost 0.5hp. Remaining: " << Graphics->GetHP() << endl;
 			
 		}
 	}

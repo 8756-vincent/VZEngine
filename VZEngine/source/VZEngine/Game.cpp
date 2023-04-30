@@ -318,10 +318,7 @@ void Game::ProcessInput()
 	//down
 	if (GameInput->IsKeyDown(SDL_SCANCODE_E)) {
 		CameraInput += -CamDirections.Up;
-	}
-	
-
-	
+	}	
 
 	//FOV
 	float NewFOV = Graphics->EngineDefaultCam->GetCameraData().FOV;

@@ -85,7 +85,6 @@ void Model::Draw()
 {
 	if (ModelCollsion != nullptr) {
 		ModelCollsion->SetLocation(Transform.Location);
-		ModelCollsion->DebugDraw(Vector3(0.0f, 255.0f, 0.0f));
 	}
 
 	//cycle through the meshes and draw each one

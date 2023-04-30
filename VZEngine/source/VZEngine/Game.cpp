@@ -80,13 +80,6 @@ void Game::Run()
 		//assign the base colour of the materials using the textures
 		MCube->BaseColour.TextureV3 = TCube;
 		MGrid->BaseColour.TextureV3 = TGrid;
-		////create VAO
-		//Model = Graphics->ImportModel("Game/Model/PrimitiveModels/Cube.fbx", TextureShader);
-		////set materials of the models
-		//Model->SetMaterialBySlot(0, MCube);
-		////transform
-		//Model->Transform.Location = Vector3(0.0f, 1.0f, 0.0f);
-		//Model->AddCollisionToModel(Vector3(1.5f));
 
 
 		Model = Graphics->ImportModel("Game/Model/shiba//shiba/shiba.FBX", TextureShader);
@@ -277,7 +270,7 @@ void Game::ProcessInput()
 
 	if (GameInput->IsKeyDown(SDL_SCANCODE_W)) {
 		if (CamCol->IsOverLapping(*Wall->GetCollision()))
-		{
+		{			
 			CameraInput += -CamDirections.Forward;
 		}
 		else if (CamCol->IsOverLapping(*Wall2->GetCollision()))

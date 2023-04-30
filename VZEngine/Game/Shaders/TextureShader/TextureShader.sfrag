@@ -67,9 +67,9 @@ void main() {
 	//gives us a direction between vertex and the camera
 	vec3 ViewDir = normalize(CamPosition - VPosition);
 
-	DirLights[0].Colour = vec3(0.0f);
+	DirLights[0].Colour = vec3(0.1f);
 	DirLights[0].Direction = vec3(0.0f, -1.0f, 0.0f);
-	DirLights[0].AmbientLight = vec3(0.1f);
+	DirLights[0].AmbientLight = vec3(0.01f);
 	
 	PointLights[0].Colour = vec3(2.0f,2.0f,0.0f);
 	PointLights[0].Position = vec3(-12.7f, 5.5f, -0.8f);
